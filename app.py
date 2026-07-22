@@ -45,32 +45,64 @@ init_storage()
 @app.route("/")
 def home():
 
+    api.update()
+
     btc = api.get_ticker("btcidr")
 
-    if btc["success"]:
-
-        price = f"{btc['last']:,.0f}"
+    if btc:
 
         status = "Connected"
 
+        price = f"{btc['last']:,.0f}"
+        buy = f"{btc['buy']:,.0f}"
+        sell = f"{btc['sell']:,.0f}"
+
     else:
 
-        price = "-"
+        status = "Disconnected"
 
-        status = btc["error"]
+        price = "-"
+        buy = "-"
+        sell = "-"
 
     return f"""
-    <h2>{config.APP_NAME}</h2>
+    <html>
 
-    <p>Version : {config.VERSION}</p>
+    <head>
 
-    <p>Status : Running</p>
+        <meta http-equiv="refresh" content="2">
 
-    <p>API : {status}</p>
+        <title>{config.APP_NAME}</title>
 
-    <p>BTC : Rp {price}</p>
+    </head>
 
-    <p>Engine : Idle</p>
+    <body>
+
+        <h2>{config.APP_NAME}</h2>
+
+        <p><b>Version :</b> {config.VERSION}</p>
+
+        <p><b>Status :</b> Running</p>
+
+        <p><b>API :</b> {status}</p>
+
+        <hr>
+
+        <h3>BTC/IDR</h3>
+
+        <p>Last : Rp {price}</p>
+
+        <p>Buy : Rp {buy}</p>
+
+        <p>Sell : Rp {sell}</p>
+
+        <hr>
+
+        <p>Engine : Idle</p>
+
+    </body>
+
+    </html>
     """
 
 if __name__ == "__main__":
