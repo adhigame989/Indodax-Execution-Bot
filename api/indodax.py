@@ -3,11 +3,11 @@ import time
 
 BASE_URL = "https://indodax.com/api"
 
+
 class IndodaxAPI:
 
     def __init__(self):
         self.session = requests.Session()
-
         self.cache = {}
         self.last_update = 0
 
@@ -19,46 +19,52 @@ class IndodaxAPI:
 
             r = self.session.get(url, timeout=10)
 
-            print("STATUS:", r.status_code)
-
             r.raise_for_status()
 
             data = r.json()
 
-            print("TYPE:", type(data))
-            print("KEYS:", list(data.keys())[:10])
+            if "tickers" not in data:
+                print("API ERROR : key 'tickers' tidak ditemukan")
+                return False
 
-            self.cache = data
+            self.cache = {}
+
+            for pair, ticker in data["tickers"].items():
+
+                self.cache[pair.lower()] = {
+                    "last": float(ticker.get("last", 0)),
+                    "buy": float(ticker.get("buy", 0)),
+                    "sell": float(ticker.get("sell", 0)),
+                    "high": float(ticker.get("high", 0)),
+                    "low": float(ticker.get("low", 0)),
+                    "vol_idr": float(ticker.get("vol_idr", 0))
+                }
+
+            self.last_update = time.time()
+
+            print(f"API OK | Pair Loaded : {len(self.cache)}")
 
             return True
 
         except Exception as e:
 
-            print("API ERROR:", e)
-
-            return False
-
-        except Exception as e:
-
-            print(e)
+            print("API ERROR :", e)
 
             return False
 
     def get_ticker(self, pair):
 
-        if pair not in self.cache:
-            return None
+        pair = pair.lower()
 
-        ticker = self.cache[pair]
+        return self.cache.get(pair)
 
-        return {
-            "last": float(ticker["last"]),
-            "buy": float(ticker["buy"]),
-            "sell": float(ticker["sell"]),
-            "high": float(ticker["high"]),
-            "low": float(ticker["low"]),
-            "vol_idr": float(ticker["vol_idr"])
-        }
+    def get_all(self):
+
+        return self.cache
+
+    def is_connected(self):
+
+        return len(self.cache) > 0
 
 
 api = IndodaxAPI()
