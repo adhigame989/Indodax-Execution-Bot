@@ -1,4 +1,5 @@
 from flask import Flask
+from api.indodax import api
 import os
 import json
 from datetime import datetime
@@ -63,3 +64,34 @@ if __name__ == "__main__":
         host=config.HOST,
         port=config.PORT
     )
+
+@app.route("/")
+def home():
+
+    btc = api.get_ticker("btcidr")
+
+    if btc["success"]:
+
+        price = f"{btc['last']:,.0f}"
+
+        status = "Connected"
+
+    else:
+
+        price = "-"
+
+        status = btc["error"]
+
+    return f"""
+    <h2>{config.APP_NAME}</h2>
+
+    <p>Version : {config.VERSION}</p>
+
+    <p>Status : Running</p>
+
+    <p>API : {status}</p>
+
+    <p>BTC : Rp {price}</p>
+
+    <p>Engine : Idle</p>
+    """
