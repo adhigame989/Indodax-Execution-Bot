@@ -19,9 +19,14 @@ class IndodaxAPI:
 
             r = self.session.get(url, timeout=10)
 
+            print(r.status_code)
+            print(r.text)
+            
             r.raise_for_status()
 
             data = r.json()
+
+            print(data)
 
             self.cache = data["tickers"]
 
