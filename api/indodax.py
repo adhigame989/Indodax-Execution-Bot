@@ -30,13 +30,12 @@ class IndodaxAPI:
 
             self.cache = data["tickers"]
 
-            self.last_update = time.time()
 
             return True
 
         except Exception as e:
 
-            print("API ERROR:", e)
+            print(e)
 
             return False
 
