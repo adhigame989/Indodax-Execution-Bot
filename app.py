@@ -1,5 +1,6 @@
 from flask import Flask
 from api.indodax import api
+from engine.monitor import monitor
 import os
 import json
 from datetime import datetime
@@ -41,11 +42,10 @@ def init_storage():
 
 
 init_storage()
+monitor.start()
 
 @app.route("/")
 def home():
-
-    api.update()
 
     btc = api.get_ticker("btc_idr")
 
