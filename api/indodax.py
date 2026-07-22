@@ -13,25 +13,30 @@ class IndodaxAPI:
 
     def update(self):
 
-        try:
+    try:
 
-            url = f"{BASE_URL}/ticker_all"
+        url = f"{BASE_URL}/ticker_all"
 
-            r = self.session.get(url, timeout=10)
+        r = self.session.get(url, timeout=10)
 
-            print(r.status_code)
-            print(r.text)
-            
-            r.raise_for_status()
+        print("STATUS:", r.status_code)
 
-            data = r.json()
+        r.raise_for_status()
 
-            print(data)
+        data = r.json()
 
-            self.cache = data["tickers"]
+        print("TYPE:", type(data))
+        print("KEYS:", list(data.keys())[:10])
 
+        self.cache = data
 
-            return True
+        return True
+
+    except Exception as e:
+
+        print("API ERROR:", e)
+
+        return False
 
         except Exception as e:
 
