@@ -12,7 +12,7 @@ class IndodaxAPI:
 
         try:
 
-            url = f"{BASE_URL}/{pair}/ticker"
+            url = f"{BASE_URL}/ticker/{pair}"
 
             r = self.session.get(url, timeout=10)
 
