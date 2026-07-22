@@ -47,7 +47,7 @@ def home():
 
     api.update()
 
-    btc = api.get_ticker("btcidr")
+    btc = api.get_ticker("btc_idr")
 
     if btc:
 
