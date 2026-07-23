@@ -104,7 +104,35 @@ def health():
         "version": config.VERSION
     }
 
+@app.route("/api/status")
+def api_status():
 
+    btc = api.get_ticker("btc_idr")
+
+    if btc is None:
+
+        btc = {
+            "last": 0,
+            "buy": 0,
+            "sell": 0
+        }
+
+    return {
+
+        "bot": {
+
+            "name": config.APP_NAME,
+
+            "version": config.VERSION
+
+        },
+
+        "market": btc,
+
+        "engine": engine.get_status()
+
+    }
+    
 if __name__ == "__main__":
 
     app.run(
