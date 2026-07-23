@@ -2,6 +2,7 @@ import threading
 import time
 
 from engine.state import BotState
+from engine.order import order
 
 
 class ExecutionEngine:
@@ -25,6 +26,10 @@ class ExecutionEngine:
         self.trailing_gap = 0
 
         self.capital = 0
+
+        self.buy_price = 0
+
+        self.highest_price = 0
 
     def configure(
         self,
@@ -101,9 +106,23 @@ class ExecutionEngine:
 
             elif self.state == BotState.BUYING:
 
-                print("BUY SIMULATION")
+                result = order.buy(
 
-                self.state = BotState.HOLDING
+                    self.coin,
+
+                    self.entry_price,
+
+                    self.capital
+
+                )
+
+                if result["success"]:
+
+                    self.buy_price = result["price"]
+
+                    self.highest_price = result["price"]
+
+                    self.state = BotState.HOLDING
 
             elif self.state == BotState.HOLDING:
 
@@ -125,7 +144,11 @@ class ExecutionEngine:
 
             "trailing_gap": self.trailing_gap,
 
-            "capital": self.capital
+            "capital": self.capital,
+
+            "buy_price": self.buy_price,
+
+            "highest_price": self.highest_price,
 
         }
 
