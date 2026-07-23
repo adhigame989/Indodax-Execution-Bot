@@ -1,0 +1,15 @@
+{
+    "enabled": true,
+    "coin": "BTC_IDR",
+    "entry_price": 1700000000,
+    "capital": 100000,
+    "tp_zone": [
+        3,
+        4,
+        5,
+        6,
+        7
+    ],
+    "trailing_gap": 1,
+    "sl_percent": 5
+}
