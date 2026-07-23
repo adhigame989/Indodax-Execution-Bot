@@ -8,6 +8,7 @@ import config
 from api.indodax import api
 from engine.monitor import monitor
 from engine.execution import engine
+from core.config_manager import config_manager
 
 app = Flask(__name__)
 
@@ -50,12 +51,20 @@ init_storage()
 
 monitor.start()
 
+cfg = config_manager.load()
+
 engine.configure(
-    coin="BTC_IDR",
-    entry_price=1700000000,
-    take_profit=3,
-    trailing_gap=1,
-    capital=100000
+
+    coin=cfg["coin"],
+
+    entry_price=cfg["entry_price"],
+
+    take_profit=cfg["tp_zone"][0],
+
+    trailing_gap=cfg["trailing_gap"],
+
+    capital=cfg["capital"]
+
 )
 
 engine.start()
@@ -132,6 +141,11 @@ def api_status():
         "engine": engine.get_status()
 
     }
+
+@app.route("/api/config")
+def api_config():
+
+    return config_manager.load()
     
 if __name__ == "__main__":
 
