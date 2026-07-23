@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv="refresh" content="2">
+
+<title>{{ app_name }}</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>{{ app_name }}</h2>
+
+<p><b>Version :</b> {{ version }}</p>
+
+<p><b>Status :</b> Running</p>
+
+<p><b>API :</b> {{ api_status }}</p>
+
+<hr>
+
+<h3>BTC / IDR</h3>
+
+<p>Last : Rp {{ btc.last }}</p>
+
+<p>Buy : Rp {{ btc.buy }}</p>
+
+<p>Sell : Rp {{ btc.sell }}</p>
+
+<hr>
+
+<h3>Execution Engine</h3>
+
+<p>State : {{ engine.state }}</p>
+
+<p>Coin : {{ engine.coin }}</p>
+
+<p>Entry : Rp {{ engine.entry_price }}</p>
+
+<p>TP : {{ engine.take_profit }} %</p>
+
+<p>Trailing : {{ engine.trailing_gap }} %</p>
+
+<p>Capital : Rp {{ engine.capital }}</p>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+
+</html>
