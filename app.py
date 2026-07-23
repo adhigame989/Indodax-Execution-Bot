@@ -1,6 +1,7 @@
 from flask import Flask
 from api.indodax import api
 from engine.monitor import monitor
+from engine.execution import engine
 import os
 import json
 from datetime import datetime
@@ -43,6 +44,21 @@ def init_storage():
 
 init_storage()
 monitor.start()
+engine.configure(
+
+    coin="BTC_IDR",
+
+    entry_price=1700000000,
+
+    take_profit=3,
+
+    trailing_gap=1,
+
+    capital=100000
+
+)
+
+engine.start()
 
 @app.route("/")
 def home():
@@ -99,6 +115,22 @@ def home():
         <hr>
 
         <p>Engine : Idle</p>
+
+        <hr>
+
+        <h3>Execution Engine</h3>
+
+        <p>State : {engine.get_status()['state']}</p>
+
+        <p>Coin : {engine.get_status()['coin']}</p>
+        
+        <p>Entry : Rp {engine.get_status()['entry_price']:,.0f}</p>
+        
+        <p>TP : {engine.get_status()['take_profit']} %</p>
+        
+        <p>Trailing : {engine.get_status()['trailing_gap']} %</p>
+        
+        <p>Capital : Rp {engine.get_status()['capital']:,.0f}</p>
 
     </body>
 
