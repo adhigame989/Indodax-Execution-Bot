@@ -75,9 +75,39 @@ class ExecutionEngine:
 
     def loop(self):
 
+        from api.indodax import api
+
         while self.running:
 
-            print(f"STATE : {self.state.value}")
+            if self.state == BotState.WAIT_ENTRY:
+
+                ticker = api.get_ticker(self.coin)
+
+                if ticker:
+
+                    current_price = ticker["last"]
+
+                    print(
+                        f"[{self.coin}] "
+                        f"Current: {current_price:,.0f} | "
+                        f"Entry: {self.entry_price:,.0f}"
+                    )
+
+                    if current_price <= self.entry_price:
+
+                        print("ENTRY TRIGGERED")
+
+                        self.state = BotState.BUYING
+
+            elif self.state == BotState.BUYING:
+
+                print("BUY SIMULATION")
+
+                self.state = BotState.HOLDING
+
+            elif self.state == BotState.HOLDING:
+
+                print("HOLDING")
 
             time.sleep(self.interval)
 
