@@ -42,9 +42,6 @@ class IndodaxAPI:
 
             self.last_update = time.time()
 
-            print("FIRST 20 PAIRS:")
-            print(list(self.cache.keys())[:20])
-
             print(f"API OK | Pair Loaded : {len(self.cache)}")
 
             return True
