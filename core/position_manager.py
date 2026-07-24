@@ -94,6 +94,10 @@ class PositionManager:
 
         return None
 
+    def get_all(self):
+
+        return self.load()
+        
     def update_highest(
             self,
             coin,
