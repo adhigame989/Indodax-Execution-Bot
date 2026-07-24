@@ -276,6 +276,29 @@ class ExecutionEngine:
             "highest_price": self.highest_price,
 
         }
+    def restore_position(self, position):
+
+        print("=" * 40)
+        print("RESTORE POSITION")
+        print("=" * 40)
+
+        self.coin = position["coin"]
+
+        self.buy_price = position["buy_price"]
+
+        self.entry_price = position["buy_price"]
+
+        self.capital = position["capital"]
+
+        self.highest_price = position["highest_price"]
+
+        self.state = BotState.HOLDING
+
+        print(f"Coin : {self.coin}")
+ 
+        print(f"Buy  : {self.buy_price}")
+
+        print("RESTORE SUCCESS")
 
 
 engine = ExecutionEngine()
