@@ -128,8 +128,32 @@ class ExecutionEngine:
 
                     self.highest_price = result["price"]
 
+                    self.state = BotState.VERIFY_ORDER
+
+            elif self.state == BotState.VERIFY_ORDER:
+
+                verify = order.verify()
+
+                if verify["status"] == "SUCCESS":
+
+                    print("ORDER VERIFIED")
+
                     self.state = BotState.HOLDING
 
+                elif verify["status"] == "PENDING":
+
+                    print("WAIT ORDER FILLED")
+
+                elif verify["status"] == "PARTIAL":
+
+                    print("PARTIAL FILLED")
+
+                else:
+
+                    print("BUY FAILED")
+
+                    self.state = BotState.WAIT_ENTRY
+                    
             elif self.state == BotState.HOLDING:
 
                 ticker = api.get_ticker(self.coin)
