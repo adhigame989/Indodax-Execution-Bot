@@ -49,5 +49,15 @@ class OrderEngine:
 
         }
 
+    def verify(self):
+
+        print("VERIFY ORDER (SIMULATION)")
+
+        return {
+
+            "status": "SUCCESS"
+
+        }
+
 
 order = OrderEngine()
