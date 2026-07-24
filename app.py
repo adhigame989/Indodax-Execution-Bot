@@ -9,6 +9,7 @@ from api.indodax import api
 from engine.monitor import monitor
 from engine.execution import engine
 from core.config_manager import config_manager
+from core.position_manager import position_manager
 
 app = Flask(__name__)
 
@@ -66,6 +67,32 @@ engine.configure(
     capital=cfg["capital"]
 
 )
+
+positions = position_manager.get_all()
+
+if positions:
+
+    engine.restore_position(
+        positions[0]
+    )
+
+else:
+
+    cfg = config_manager.load()
+
+    engine.configure(
+
+        coin=cfg["coin"],
+
+        entry_price=cfg["entry_price"],
+
+        take_profit=cfg["tp_zone"][0],
+
+        trailing_gap=cfg["trailing_gap"],
+
+        capital=cfg["capital"]
+
+    )
 
 engine.start()
 
