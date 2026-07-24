@@ -3,6 +3,7 @@ import time
 
 from engine.state import BotState
 from engine.order import order
+from core.position_manager import position_manager
 
 
 class ExecutionEngine:
@@ -128,6 +129,20 @@ class ExecutionEngine:
 
                     self.highest_price = result["price"]
 
+                    qty = self.capital / self.buy_price
+
+                    position_manager.add(
+
+                        coin=self.coin,
+
+                        buy_price=self.buy_price,
+
+                        capital=self.capital,
+
+                        qty=qty
+
+                    )
+
                     self.state = BotState.VERIFY_ORDER
 
             elif self.state == BotState.VERIFY_ORDER:
@@ -165,6 +180,8 @@ class ExecutionEngine:
                     if self.current_price > self.highest_price:
 
                         self.highest_price = self.current_price
+
+                        position_manager.update_highest(self.coin,self.highest_price)
 
                     profit = (
                         (self.current_price - self.buy_price)
@@ -225,6 +242,8 @@ class ExecutionEngine:
                 if result["success"]:
 
                     print("SELL COMPLETE")
+
+                    position_manager.remove(self.coin)
 
                     self.state = BotState.FINISHED
             
