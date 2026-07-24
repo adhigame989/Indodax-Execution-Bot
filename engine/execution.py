@@ -31,6 +31,12 @@ class ExecutionEngine:
 
         self.highest_price = 0
 
+        self.current_price = 0
+
+        self.trailing_price = 0
+
+        self.tp_activated = False
+
     def configure(
         self,
         coin,
@@ -126,8 +132,84 @@ class ExecutionEngine:
 
             elif self.state == BotState.HOLDING:
 
-                print("HOLDING")
+                ticker = api.get_ticker(self.coin)
 
+                    if ticker:
+
+                        self.current_price = ticker["last"]
+
+                        if self.current_price > self.highest_price:
+
+                            self.highest_price = self.current_price
+
+                        profit = (
+                            (self.current_price - self.buy_price)
+                            / self.buy_price) * 100
+
+                        print(
+                            f"HOLDING | "
+                            f"Price={self.current_price:,.0f} | "
+                            f"Profit={profit:.2f}%"
+                        )
+
+                        if profit >= self.take_profit:
+
+                            print("TP ZONE REACHED")
+
+                            self.state = BotState.TP_ZONE
+
+            elif self.state == BotState.TP_ZONE:
+
+                ticker = api.get_ticker(self.coin)
+
+                if ticker:
+
+                    self.current_price = ticker["last"]
+
+                    if self.current_price > self.highest_price:
+
+                        self.highest_price = self.current_price
+
+                    self.trailing_price = self.highest_price * (
+                        1 - self.trailing_gap / 100
+                    )
+
+                    print(
+                        f"Highest={self.highest_price:,.0f}"
+                    )
+
+                    print(
+                        f"Trailing={self.trailing_price:,.0f}"
+                    )
+
+                    if self.current_price <= self.trailing_price:
+
+                        print("TRAILING HIT")
+
+                        self.state = BotState.SELLING
+
+            elif self.state == BotState.SELLING:
+
+                result = order.sell(
+
+                    self.coin,
+
+                    self.current_price
+
+                )
+
+                if result["success"]:
+
+                    print("SELL COMPLETE")
+
+                    self.state = BotState.FINISHED
+            
+            elif self.state == BotState.FINISHED:
+
+                print("TRADE FINISHED")
+
+                self.running = False
+            
             time.sleep(self.interval)
 
     def get_status(self):
