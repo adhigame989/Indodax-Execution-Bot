@@ -9,6 +9,8 @@ class BotState(Enum):
 
     BUYING = "BUYING"
 
+    VERIFY_ORDER = "VERIFY_ORDER"
+
     HOLDING = "HOLDING"
 
     TP_ZONE = "TP_ZONE"
