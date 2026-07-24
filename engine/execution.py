@@ -96,7 +96,7 @@ class ExecutionEngine:
 
                 if ticker:
 
-                    current_price = ticker["last"]
+                    self.current_price = ticker["last"]
 
                     print(
                         f"[{self.coin}] "
@@ -104,7 +104,7 @@ class ExecutionEngine:
                         f"Entry: {self.entry_price:,.0f}"
                     )
 
-                    if current_price <= self.entry_price:
+                    if self.current_price <= self.entry_price:
 
                         print("ENTRY TRIGGERED")
 
@@ -134,29 +134,29 @@ class ExecutionEngine:
 
                 ticker = api.get_ticker(self.coin)
 
-                    if ticker:
+                if ticker:
 
-                        self.current_price = ticker["last"]
+                    self.current_price = ticker["last"]
 
-                        if self.current_price > self.highest_price:
+                    if self.current_price > self.highest_price:
 
-                            self.highest_price = self.current_price
+                        self.highest_price = self.current_price
 
-                        profit = (
-                            (self.current_price - self.buy_price)
-                            / self.buy_price) * 100
+                    profit = (
+                        (self.current_price - self.buy_price)
+                        / self.buy_price) * 100
 
-                        print(
-                            f"HOLDING | "
-                            f"Price={self.current_price:,.0f} | "
-                            f"Profit={profit:.2f}%"
-                        )
+                    print(
+                        f"HOLDING | "
+                        f"Price={self.current_price:,.0f} | "
+                        f"Profit={profit:.2f}%"
+                    )
 
-                        if profit >= self.take_profit:
+                    if profit >= self.take_profit:
 
-                            print("TP ZONE REACHED")
+                        print("TP ZONE REACHED")
 
-                            self.state = BotState.TP_ZONE
+                        self.state = BotState.TP_ZONE
 
             elif self.state == BotState.TP_ZONE:
 
