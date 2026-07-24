@@ -10,6 +10,7 @@ from engine.monitor import monitor
 from engine.execution import engine
 from core.config_manager import config_manager
 from core.position_manager import position_manager
+from engine.recovery import recovery
 
 app = Flask(__name__)
 
@@ -68,15 +69,7 @@ engine.configure(
 
 )
 
-positions = position_manager.get_all()
-
-if positions:
-
-    engine.restore_position(
-        positions[0]
-    )
-
-else:
+if not recovery.restore(engine):
 
     cfg = config_manager.load()
 
