@@ -58,7 +58,7 @@ class VerifyBuyEngine:
         print("BUY VERIFIED")
         print(f"Coin : {engine.coin}")
         print(f"Buy  : {engine.buy_price:,.0f}")
-        print(f"Qty  : {qty}")
+        print(f"Qty  : {engine.qty}")
         print("=" * 40)
 
         engine.state = BotState.HOLDING
