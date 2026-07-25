@@ -67,3 +67,34 @@ body{
     color:#888;
 
 }
+.card{
+
+    background:#1f2937;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 0 10px rgba(0,0,0,.25);
+
+}
+
+.card-title{
+
+    color:#9ca3af;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.card-value{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
