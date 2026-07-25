@@ -33,6 +33,7 @@ class ExecutionEngine:
         self.order_id = None
         self.sell_order_id = None
         self.last_buy_failed = 0
+        self.buy_time = None
 
     def configure(self, coin, entry_price, take_profit, trailing_gap, capital):
         self.coin = coin.upper()
