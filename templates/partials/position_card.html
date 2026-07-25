@@ -9,8 +9,35 @@
     <table class="info-table">
 
         <tr>
+            <td>Status</td>
+            <td>
+                {% if engine.state == "HOLDING" %}
+                    🟢 HOLDING
+                {% elif engine.state == "TP_ZONE" %}
+                    🟡 TP ZONE
+                {% elif engine.state == "TRAILING" %}
+                    🔵 TRAILING
+                {% elif engine.state == "SELLING" %}
+                    🔴 SELLING
+                {% else %}
+                    {{ engine.state }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
             <td>Coin</td>
             <td>{{ position.coin }}</td>
+        </tr>
+
+        <tr>
+            <td>Capital</td>
+            <td>{{ position.capital }}</td>
+        </tr>
+
+        <tr>
+            <td>Qty</td>
+            <td>{{ position.qty }}</td>
         </tr>
 
         <tr>
@@ -24,49 +51,7 @@
         </tr>
 
         <tr>
-            <td>Profit</td>
-            <td>
-
-            {% if "+" in position.pnl_percent %}
-
-            <span style="color:#22c55e;font-weight:bold;">
-            {{ position.pnl_percent }}
-            </span>
-
-            {% else %}
-
-            <span style="color:#ef4444;font-weight:bold;">
-            {{ position.pnl_percent }}
-            </span>
-
-            {% endif %}
-
-            </td>
-        </tr>
-
-        <tr>
-            <td>Profit (Rp)</td>
-            <td>
-
-            {% if "+" in position.pnl_percent %}
-
-            <span style="color:#22c55e;">
-            {{ position.pnl }}
-            </span>
-
-            {% else %}
-
-            <span style="color:#ef4444;">
-            {{ position.pnl }}
-            </span>
-
-            {% endif %}
-
-            </td>
-        </tr>
-
-        <tr>
-            <td>Highest</td>
+            <td>Highest Price</td>
             <td>{{ position.highest }}</td>
         </tr>
 
@@ -75,12 +60,104 @@
             <td>{{ position.hold_time }}</td>
         </tr>
 
+        <tr>
+
+            <td>Profit</td>
+
+            <td>
+
+                {% if "+" in position.pnl_percent %}
+
+                <span style="color:#22c55e;font-weight:bold;">
+
+                    {{ position.pnl_percent }}
+
+                </span>
+
+                {% else %}
+
+                <span style="color:#ef4444;font-weight:bold;">
+
+                    {{ position.pnl_percent }}
+
+                </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>Profit (Rp)</td>
+
+            <td>
+
+                {% if "+" in position.pnl_percent %}
+
+                <span style="color:#22c55e;">
+
+                    {{ position.pnl }}
+
+                </span>
+
+                {% else %}
+
+                <span style="color:#ef4444;">
+
+                    {{ position.pnl }}
+
+                </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>TP Status</td>
+            <td>
+
+                {% if engine.tp_activated %}
+
+                    🟢 ACTIVE
+
+                {% else %}
+
+                    ⚪ OFF
+
+                {% endif %}
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>Trailing</td>
+            <td>
+
+                {% if engine.state == "TRAILING" %}
+
+                    🔵 ACTIVE
+
+                {% else %}
+
+                    ⚪ OFF
+
+                {% endif %}
+
+            </td>
+        </tr>
+
     </table>
 
     {% else %}
 
     <div style="padding:18px 0;color:#9ca3af;">
+
         No Active Position
+
     </div>
 
     {% endif %}
