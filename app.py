@@ -206,6 +206,26 @@ def home():
 
         }
     
+    config_data = {
+
+        "coin": cfg.get("coin", "-"),
+
+        "entry_price": format_rupiah(
+            cfg.get("entry_price", 0)
+        ),
+
+        "capital": format_rupiah(
+            cfg.get("capital", 0)
+        ),
+
+        "take_profit": cfg.get("tp_zone", [0])[0],
+
+        "trailing_gap": cfg.get("trailing_gap", 0),
+
+        "interval": cfg.get("refresh_interval", 60)
+
+        }
+    
     return render_template(
         "index.html",
         app_name=config.APP_NAME,
@@ -215,6 +235,7 @@ def home():
         engine=status,
         wallet=wallet,
         position=position,
+        config_data=config_data,
         bot_status=status.get("status","RUNNING")
     )
 
