@@ -42,6 +42,8 @@ class ExecutionEngine:
 
         self.sell_order_id = None
 
+        self.last_buy_failed = 0
+
     def configure(
         self,
         coin,
@@ -111,10 +113,21 @@ class ExecutionEngine:
 
                     if self.current_price <= self.entry_price:
 
+                        now = time.time()
+
+                        if now - self.last_buy_failed < config.BUY_RETRY_DELAY:
+
+                            remain = int(
+                                config.BUY_RETRY_DELAY -
+                                (now - self.last_buy_failed))
+
+                            print(f"BUY COOLDOWN ({remain}s)")
+
+                            return
+
                         print("ENTRY TRIGGERED")
 
                         self.state = BotState.BUYING
-
             elif self.state == BotState.BUYING:
 
                 result = order.buy(
@@ -135,8 +148,12 @@ class ExecutionEngine:
                     self.state = BotState.VERIFY_BUY
 
                 else:
+                    
+                    self.last_buy_failed = time.time()
 
                     print(result["message"])
+                    
+                    print(f"Retry Buy in {config.BUY_RETRY_DELAY}s")
 
                     self.state = BotState.WAIT_ENTRY
 
