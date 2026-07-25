@@ -219,3 +219,23 @@ body{
     font-weight:bold;
 
 }
+
+.info-table input{
+
+    width:100%;
+
+    background:#1e2635;
+
+    color:white;
+
+    border:1px solid #3d4b63;
+
+    border-radius:8px;
+
+    padding:8px;
+
+    font-size:15px;
+
+    box-sizing:border-box;
+
+}
