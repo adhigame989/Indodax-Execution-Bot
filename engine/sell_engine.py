@@ -11,9 +11,16 @@ class SellEngine:
         print("SELL ENGINE")
         print("=" * 40)
 
-        qty = engine.capital / engine.buy_price
+        qty = engine.qty
 
-        # Cek saldo coin
+        if qty <= 0:
+
+            print("SELL FAILED : INVALID QTY")
+
+            engine.state = BotState.HOLDING
+
+            return
+
         if not wallet.can_sell(
 
             engine.coin,
@@ -28,7 +35,6 @@ class SellEngine:
 
             return
 
-        # Kirim Sell Order
         result = order.sell(
 
             engine.coin,
@@ -44,7 +50,9 @@ class SellEngine:
             engine.sell_order_id = result["order_id"]
 
             print(
+
                 f"SELL ORDER CREATED : {engine.sell_order_id}"
+
             )
 
             engine.state = BotState.VERIFY_SELL
