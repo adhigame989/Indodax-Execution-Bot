@@ -135,6 +135,20 @@ def home():
     status["sell_price"] = format_rupiah(status.get("sell_price", 0))
     status["current_price"] = format_rupiah(status.get("current_price", 0))
     status["capital"] = format_rupiah(status.get("capital", 0))
+    buy = status.get("buy_price", 0)
+    current = status.get("current_price", 0)
+
+    if buy > 0 and current > 0:
+
+        pnl_percent = ((current - buy) / buy) * 100
+
+        pnl_value = (current - buy) * status.get("qty", 0)
+
+    else:
+
+        pnl_percent = 0
+
+        pnl_value = 0
     
     wallet = {
 
