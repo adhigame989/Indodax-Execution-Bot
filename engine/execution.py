@@ -11,6 +11,7 @@ from engine.trailing_engine import trailing_engine
 from engine.sell_engine import sell_engine
 from engine.verify_sell_engine import verify_sell_engine
 from engine.finish_engine import finish_engine
+from datetime import datetime
 
 class ExecutionEngine:
     def __init__(self):
@@ -117,5 +118,14 @@ class ExecutionEngine:
         self.highest_price = position.get("highest_price", self.buy_price)
         self.current_price = self.buy_price
         self.state = BotState.HOLDING
+        
+        if position.get("buy_time"):
+            self.buy_time = datetime.strptime(
+            position["buy_time"],
+            "%Y-%m-%d %H:%M:%S"
+            )
+
+        else:
+            self.buy_time = None
 
 engine = ExecutionEngine()
