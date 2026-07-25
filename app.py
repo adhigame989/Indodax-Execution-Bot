@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask import request, redirect
 import os
 import json
 from datetime import datetime
@@ -243,7 +244,25 @@ def home():
         bot_status=status.get("status","RUNNING")
     )
 
+@app.route("/save_config", methods=["POST"])
+def save_config():
 
+    cfg = config_manager.load()
+
+    cfg["coin"] = request.form["coin"]
+
+    cfg["entry_price"] = int(request.form["entry_price"])
+
+    cfg["capital"] = int(request.form["capital"])
+
+    cfg["tp_zone"][0] = int(request.form["tp"])
+
+    cfg["trailing_gap"] = int(request.form["trailing_gap"])
+
+    config_manager.save(cfg)
+
+    return redirect("/")
+    
 @app.route("/health")
 def health():
 
