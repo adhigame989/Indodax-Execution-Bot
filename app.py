@@ -136,6 +136,16 @@ def home():
     status["current_price"] = format_rupiah(status.get("current_price", 0))
     status["capital"] = format_rupiah(status.get("capital", 0))
     
+    wallet = {
+
+        "idr": 0,
+
+        "coin": 0,
+
+        "equity": 0
+
+        }
+    
     return render_template(
         "index.html",
         app_name=config.APP_NAME,
@@ -143,6 +153,7 @@ def home():
         api_status=api_status,
         btc=btc,
         engine=status,
+        wallet=wallet,
         bot_status=status.get("status","RUNNING")
     )
 
