@@ -98,3 +98,92 @@ body{
     font-weight:bold;
 
 }
+.navbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px;
+
+    background:#1f2937;
+
+    border-bottom:1px solid #374151;
+
+}
+
+.navbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.logo{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:24px;
+
+}
+
+.app-title{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.app-version{
+
+    font-size:12px;
+
+    color:#9ca3af;
+
+}
+
+.status{
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+.online{
+
+    background:#14532d;
+
+    color:#4ade80;
+
+}
+
+.offline{
+
+    background:#7f1d1d;
+
+    color:#f87171;
+
+}
