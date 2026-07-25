@@ -1,0 +1,31 @@
+<div class="card">
+
+    <div class="card-title">
+        🎯 TARGET TRADE
+    </div>
+
+    <table class="info-table">
+
+        <tr>
+            <td>Coin</td>
+            <td>{{ engine.coin or "-" }}</td>
+        </tr>
+
+        <tr>
+            <td>Status</td>
+            <td>{{ engine.state }}</td>
+        </tr>
+
+        <tr>
+            <td>Entry</td>
+            <td>{{ engine.entry_price or "-" }}</td>
+        </tr>
+
+        <tr>
+            <td>Trade Amount</td>
+            <td>Rp {{ engine.trade_amount or "-" }}</td>
+        </tr>
+
+    </table>
+
+</div>
