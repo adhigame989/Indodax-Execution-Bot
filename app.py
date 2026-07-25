@@ -117,13 +117,16 @@ def home():
             "sell": "-"
         }
 
+    status = engine.get_status()
+    
     return render_template(
         "index.html",
         app_name=config.APP_NAME,
         version=config.VERSION,
         api_status=api_status,
         btc=btc,
-        engine=engine.get_status()
+        engine=status,
+        bot_status=status.get("status","RUNNING")
     )
 
 
