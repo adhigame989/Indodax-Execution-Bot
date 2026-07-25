@@ -12,6 +12,7 @@ from core.config_manager import config_manager
 from core.position_manager import position_manager
 from engine.recovery import recovery
 from api.private import private
+from core.wallet_manager import wallet
 
 app = Flask(__name__)
 
@@ -167,6 +168,16 @@ def api_status():
 def api_wallet():
 
     return private.get_info()
+
+@app.route("/api/balance")
+def api_balance():
+
+    return {
+
+        "idr": wallet.get_idr_balance(),
+
+        "btc": wallet.get_coin_balance("btc")
+    }
 
 @app.route("/api/config")
 def api_config():
