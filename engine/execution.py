@@ -351,6 +351,8 @@ class ExecutionEngine:
 
         self.buy_price = position["buy_price"]
 
+        self.qty = position.get("qty", 0)
+
         self.entry_price = position["buy_price"]
 
         self.capital = position["capital"]
