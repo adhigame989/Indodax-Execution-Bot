@@ -11,3 +11,7 @@ DATA_DIR = "data"
 UPDATE_INTERVAL = 2
 
 DEBUG = False
+
+API_KEY = os.getenv("API_KEY", "")
+
+API_SECRET = os.getenv("API_SECRET", "")
