@@ -1,7 +1,7 @@
 from engine.state import BotState
 from engine.order import order
 from core.position_manager import position_manager
-
+from datetime import datetime
 
 class VerifyBuyEngine:
 
@@ -61,6 +61,7 @@ class VerifyBuyEngine:
         print(f"Qty  : {engine.qty}")
         print("=" * 40)
 
+        engine.buy_time = datetime.now()
         engine.state = BotState.HOLDING
 
 
