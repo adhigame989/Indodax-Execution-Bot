@@ -160,7 +160,21 @@ def home():
 
         }
 
-    position = {
+    hold_time = "-"
+
+    if engine.buy_time:
+
+        delta = datetime.now() - engine.buy_time
+
+        total = int(delta.total_seconds())
+
+        hours = total // 3600
+
+        minutes = (total % 3600) // 60
+
+        hold_time = f"{hours}h {minutes}m"
+        
+     position = {
 
         "active": status.get("state") in ["HOLDING","TP_ZONE","TRAILING"],
 
@@ -176,7 +190,7 @@ def home():
 
         "pnl": format_rupiah(pnl_value),
 
-        "hold_time": "-"
+        "hold_time": hold_time
         }
     
     return render_template(
