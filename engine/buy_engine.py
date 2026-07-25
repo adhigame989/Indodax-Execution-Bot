@@ -2,7 +2,7 @@ import time
 
 from engine.state import BotState
 from engine.order import order
-from core.wallet_manager import wallet_manager
+from core.wallet_manager import wallet
 
 
 class BuyEngine:
@@ -14,7 +14,7 @@ class BuyEngine:
         print("=" * 40)
 
         # Cek saldo IDR
-        if not wallet_manager.can_buy(engine.capital):
+        if not wallet.can_buy(engine.capital):
 
             print("BUY FAILED : Insufficient IDR Balance")
 
