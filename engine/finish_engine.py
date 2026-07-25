@@ -25,6 +25,7 @@ class FinishEngine:
         engine.trailing_price = 0
 
         engine.qty = 0
+        engine.buy_time = None
 
         engine.tp_activated = False
 
