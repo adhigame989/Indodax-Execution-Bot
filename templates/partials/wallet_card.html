@@ -8,17 +8,17 @@
 
         <tr>
             <td>IDR Balance</td>
-            <td>{{ wallet.idr or "Rp -" }}</td>
+            <td>Rp {{ wallet.idr }}</td>
         </tr>
 
         <tr>
             <td>Coin Balance</td>
-            <td>{{ wallet.coin_balance or "-" }}</td>
+            <td>{{ wallet.coin }}</td>
         </tr>
 
         <tr>
             <td>Total Asset</td>
-            <td>{{ wallet.total_asset or "Rp -" }}</td>
+            <td>Rp {{ wallet.equity }}</td>
         </tr>
 
     </table>
