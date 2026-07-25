@@ -59,9 +59,123 @@ class PrivateAPI:
                 "error": str(e)
             }
 
+    # ==========================
+    # ACCOUNT
+    # ==========================
+
     def get_info(self):
 
-        return self._request("getInfo")
+        return self._request(
+            "getInfo"
+        )
+
+    # ==========================
+    # BUY
+    # ==========================
+
+    def buy(self, pair, price, idr):
+
+        return self._request(
+
+            "trade",
+
+            {
+
+                "pair": pair.lower(),
+
+                "type": "buy",
+
+                "price": price,
+
+                "idr": idr
+
+            }
+
+        )
+
+    # ==========================
+    # SELL
+    # ==========================
+
+    def sell(self, pair, price, coin):
+
+        return self._request(
+
+            "trade",
+
+            {
+
+                "pair": pair.lower(),
+
+                "type": "sell",
+
+                "price": price,
+
+                pair.lower().replace("_idr", ""): coin
+
+            }
+
+        )
+
+    # ==========================
+    # ORDER STATUS
+    # ==========================
+
+    def get_order(self, pair, order_id):
+
+        return self._request(
+
+            "getOrder",
+
+            {
+
+                "pair": pair.lower(),
+
+                "order_id": order_id
+
+            }
+
+        )
+
+    # ==========================
+    # OPEN ORDER
+    # ==========================
+
+    def open_orders(self, pair):
+
+        return self._request(
+
+            "openOrders",
+
+            {
+
+                "pair": pair.lower()
+
+            }
+
+        )
+
+    # ==========================
+    # CANCEL ORDER
+    # ==========================
+
+    def cancel_order(self, pair, order_id, order_type):
+
+        return self._request(
+
+            "cancelOrder",
+
+            {
+
+                "pair": pair.lower(),
+
+                "order_id": order_id,
+
+                "type": order_type
+
+            }
+
+        )
 
 
 private = PrivateAPI()
