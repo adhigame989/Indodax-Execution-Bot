@@ -165,6 +165,7 @@ def home():
         btc=btc,
         engine=status,
         wallet=wallet,
+        position=position,
         bot_status=status.get("status","RUNNING")
     )
 
