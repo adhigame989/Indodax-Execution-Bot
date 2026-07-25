@@ -174,7 +174,7 @@ def home():
 
         hold_time = f"{hours}h {minutes}m"
         
-     position = {
+    position = {
 
         "active": status.get("state") in ["HOLDING","TP_ZONE","TRAILING"],
 
