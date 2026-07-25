@@ -3,13 +3,27 @@ from enum import Enum
 
 class BotState(Enum):
 
+    # ==========================
+    # SYSTEM
+    # ==========================
+
     STANDBY = "STANDBY"
+
+    PAUSED = "PAUSED"
+
+    # ==========================
+    # ENTRY
+    # ==========================
 
     WAIT_ENTRY = "WAIT_ENTRY"
 
     BUYING = "BUYING"
 
-    VERIFY_ORDER = "VERIFY_ORDER"
+    VERIFY_BUY = "VERIFY_BUY"
+
+    # ==========================
+    # POSITION
+    # ==========================
 
     HOLDING = "HOLDING"
 
@@ -17,8 +31,14 @@ class BotState(Enum):
 
     TRAILING = "TRAILING"
 
+    # ==========================
+    # EXIT
+    # ==========================
+
     SELLING = "SELLING"
+
+    VERIFY_SELL = "VERIFY_SELL"
 
     FINISHED = "FINISHED"
 
-    PAUSED = "PAUSED"
+    FAILED = "FAILED"
