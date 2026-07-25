@@ -79,8 +79,34 @@ class ExecutionEngine:
             time.sleep(self.interval)
 
     def get_status(self):
-        return {"state": self.state.value}
 
+        return {
+
+            "status": "RUNNING" if self.running else "STOPPED",
+
+            "state": self.state.value,
+
+            "coin": self.coin,
+
+            "entry_price": self.entry_price,
+
+            "buy_price": self.buy_price,
+
+            "sell_price": self.sell_price,
+
+            "current_price": self.current_price,
+
+            "highest_price": self.highest_price,
+
+            "qty": self.qty,
+
+            "capital": self.capital,
+
+            "take_profit": self.take_profit,
+
+            "trailing_gap": self.trailing_gap
+
+        }
     def restore_position(self, position):
         self.coin = position["coin"]
         self.buy_price = position["buy_price"]
