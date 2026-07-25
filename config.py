@@ -15,3 +15,5 @@ DEBUG = False
 API_KEY = os.getenv("API_KEY", "")
 
 API_SECRET = os.getenv("API_SECRET", "")
+
+BUY_RETRY_DELAY = 30
