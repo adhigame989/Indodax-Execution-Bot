@@ -40,7 +40,7 @@ class VerifyBuyEngine:
 
         engine.highest_price = engine.buy_price
 
-        qty = float(verify["qty"])
+        engine.qty = float(verify["qty"])
 
         position_manager.add(
 
@@ -50,7 +50,7 @@ class VerifyBuyEngine:
 
             capital=engine.capital,
 
-            qty=qty
+            qty=engine.qty
 
         )
 
