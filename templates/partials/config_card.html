@@ -4,38 +4,62 @@
         ⚙ CONFIG
     </div>
 
-    <table class="info-table">
+    <form>
 
-        <tr>
-            <td>Coin</td>
-            <td>{{ config_data.coin }}</td>
-        </tr>
+        <table class="info-table">
 
-        <tr>
-            <td>Entry Price</td>
-            <td>{{ config_data.entry_price }}</td>
-        </tr>
+            <tr>
+                <td>Coin</td>
+                <td>
+                    <input
+                        type="text"
+                        name="coin"
+                        value="{{ config_data.coin }}">
+                </td>
+            </tr>
 
-        <tr>
-            <td>Capital</td>
-            <td>{{ config_data.capital }}</td>
-        </tr>
+            <tr>
+                <td>Entry Price</td>
+                <td>
+                    <input
+                        type="number"
+                        name="entry_price"
+                        value="{{ config_data.entry_price_raw }}">
+                </td>
+            </tr>
 
-        <tr>
-            <td>Take Profit</td>
-            <td>{{ config_data.take_profit }} %</td>
-        </tr>
+            <tr>
+                <td>Capital</td>
+                <td>
+                    <input
+                        type="number"
+                        name="capital"
+                        value="{{ config_data.capital_raw }}">
+                </td>
+            </tr>
 
-        <tr>
-            <td>Trailing Gap</td>
-            <td>{{ config_data.trailing_gap }} %</td>
-        </tr>
+            <tr>
+                <td>Take Profit</td>
+                <td>
+                    <input
+                        type="number"
+                        name="tp"
+                        value="{{ config_data.take_profit }}">
+                </td>
+            </tr>
 
-        <tr>
-            <td>Refresh</td>
-            <td>{{ config_data.interval }} sec</td>
-        </tr>
+            <tr>
+                <td>Trailing Gap</td>
+                <td>
+                    <input
+                        type="number"
+                        name="trailing_gap"
+                        value="{{ config_data.trailing_gap }}">
+                </td>
+            </tr>
 
-    </table>
+        </table>
+
+    </form>
 
 </div>
