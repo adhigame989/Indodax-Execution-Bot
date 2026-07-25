@@ -1,8 +1,50 @@
 <header class="navbar">
 
-    <div class="logo">
+    <div class="navbar-left">
 
-        INDODAX EXECUTION BOT
+        <div class="logo">
+
+            🤖
+
+        </div>
+
+        <div>
+
+            <div class="app-title">
+
+                {{ app_name }}
+
+            </div>
+
+            <div class="app-version">
+
+                Version {{ version }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="navbar-right">
+
+        {% if api_status == "Connected" %}
+
+            <span class="status online">
+
+                ● ONLINE
+
+            </span>
+
+        {% else %}
+
+            <span class="status offline">
+
+                ● OFFLINE
+
+            </span>
+
+        {% endif %}
 
     </div>
 
