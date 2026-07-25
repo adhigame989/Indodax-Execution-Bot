@@ -1,35 +1,69 @@
 body{
 
-background:#111;
+    margin:0;
 
-color:white;
+    background:#111827;
 
-font-family:Arial;
+    color:white;
 
-margin:0;
+    font-family:Arial;
 
-padding:20px;
+}
+
+.navbar{
+
+    background:#1f2937;
+
+    padding:16px;
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:bold;
 
 }
 
 .container{
 
-background:#1b1b1b;
-
-padding:15px;
-
-border-radius:10px;
+    padding:15px;
 
 }
 
-h2{
+.card{
 
-color:#00d084;
+    background:#1f2937;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:15px;
 
 }
 
-hr{
+.card h2{
 
-border:1px solid #333;
+    margin:0 0 10px;
+
+    color:#22c55e;
+
+}
+
+.card p{
+
+    font-size:20px;
+
+    margin:0;
+
+}
+
+.footer{
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#888;
 
 }
