@@ -23,7 +23,15 @@ FILES = [
     "bot_state.json"
 ]
 
+def format_rupiah(value):
 
+    try:
+        return f"Rp {float(value):,.0f}".replace(",", ".")
+
+    except:
+
+        return "Rp -"
+        
 def init_storage():
 
     os.makedirs(config.DATA_DIR, exist_ok=True)
@@ -118,6 +126,15 @@ def home():
         }
 
     status = engine.get_status()
+
+    if status.get("coin"):
+        status["coin"] = status["coin"].replace("_IDR", "")
+
+    status["entry_price"] = format_rupiah(status.get("entry_price", 0))
+    status["buy_price"] = format_rupiah(status.get("buy_price", 0))
+    status["sell_price"] = format_rupiah(status.get("sell_price", 0))
+    status["current_price"] = format_rupiah(status.get("current_price", 0))
+    status["capital"] = format_rupiah(status.get("capital", 0))
     
     return render_template(
         "index.html",
