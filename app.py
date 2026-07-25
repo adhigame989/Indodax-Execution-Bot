@@ -208,21 +208,25 @@ def home():
     
     config_data = {
 
-        "coin": cfg.get("coin", "-"),
+        "coin": cfg.get("coin"),
 
         "entry_price": format_rupiah(
-            cfg.get("entry_price", 0)
+            cfg.get("entry_price",0)
         ),
+
+        "entry_price_raw": cfg.get("entry_price",0),
 
         "capital": format_rupiah(
-            cfg.get("capital", 0)
+            cfg.get("capital",0)
         ),
 
-        "take_profit": cfg.get("tp_zone", [0])[0],
+        "capital_raw": cfg.get("capital",0),
 
-        "trailing_gap": cfg.get("trailing_gap", 0),
+        "take_profit": cfg.get("tp_zone",[0])[0],
 
-        "interval": cfg.get("refresh_interval", 60)
+        "trailing_gap": cfg.get("trailing_gap",0),
+
+        "interval":60
 
         }
     
