@@ -30,6 +30,8 @@ class ExecutionEngine:
 
         self.buy_price = 0
 
+        self.qty = 0
+
         self.highest_price = 0
 
         self.current_price = 0
@@ -44,7 +46,6 @@ class ExecutionEngine:
 
         self.last_buy_failed = 0
 
-        self.qty = 0
 
     def configure(
         self,
