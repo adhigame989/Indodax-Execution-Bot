@@ -147,14 +147,21 @@ def home():
         }
 
     position = {
-        "active": False,
-        "coin": "",
-        "buy_price": "",
-        "current_price": "",
-        "pnl_percent": "",
-        "pnl": "",
-        "highest": "",
-        "hold_time": ""
+        "active": status.get("state") in ["HOLDING", "TP_ZONE", "TRAILING"],
+
+        "coin": status.get("coin", "-"),
+
+        "buy_price": status.get("buy_price", "Rp -"),
+
+        "current_price": status.get("current_price", "Rp -"),
+
+        "highest": format_rupiah(status.get("highest_price", 0)),
+
+        "pnl_percent": "-",
+
+        "pnl": "Rp -",
+
+        "hold_time": "-"
         }
     
     return render_template(
