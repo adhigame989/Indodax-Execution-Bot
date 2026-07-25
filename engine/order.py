@@ -1,62 +1,160 @@
-import time
+from api.private import private
 
 
 class OrderEngine:
 
-    def buy(self, coin, price, capital):
+    # ==========================
+    # BUY
+    # ==========================
 
-        print("=" * 40)
-        print("BUY ORDER")
-        print("=" * 40)
+    def buy(self, pair, price, capital):
 
-        print(f"Coin    : {coin}")
-        print(f"Price   : {price}")
-        print(f"Capital : {capital}")
+        result = private.buy(
+            pair=pair,
+            price=price,
+            idr=capital
+        )
 
-        time.sleep(1)
+        if result.get("success") != 1:
 
-        print("BUY SUCCESS (SIMULATION)")
+            return {
+                "success": False,
+                "message": result.get("error", "BUY FAILED")
+            }
+
+        data = result["return"]
 
         return {
-
             "success": True,
-
-            "price": price,
-
-            "capital": capital
-
+            "order_id": data["order_id"],
+            "message": "BUY ORDER CREATED"
         }
 
+    # ==========================
+    # SELL
+    # ==========================
 
-    def sell(self, coin, price):
+    def sell(self, pair, price, qty):
 
-        print("=" * 40)
-        print("SELL ORDER")
-        print("=" * 40)
+        result = private.sell(
+            pair=pair,
+            price=price,
+            coin=qty
+        )
 
-        print(f"Coin  : {coin}")
-        print(f"Price : {price}")
+        if result.get("success") != 1:
 
-        time.sleep(1)
+            return {
+                "success": False,
+                "message": result.get("error", "SELL FAILED")
+            }
 
-        print("SELL SUCCESS (SIMULATION)")
+        data = result["return"]
 
         return {
-
             "success": True,
-
-            "price": price
-
+            "order_id": data["order_id"],
+            "message": "SELL ORDER CREATED"
         }
 
-    def verify(self):
+    # ==========================
+    # VERIFY BUY
+    # ==========================
 
-        print("VERIFY ORDER (SIMULATION)")
+    def verify_buy(self, pair, order_id):
+
+        result = private.get_order(
+            pair,
+            order_id
+        )
+
+        if result.get("success") != 1:
+
+            return {
+                "success": False,
+                "filled": False,
+                "message": result.get("error", "VERIFY FAILED")
+            }
+
+        data = result["return"]
+
+        buy = data.get("buy", {})
+
+        status = buy.get("status", "")
+
+        if status.lower() == "filled":
+
+            return {
+                "success": True,
+                "filled": True,
+                "price": float(buy.get("price", 0)),
+                "qty": float(buy.get("order_amount", 0))
+            }
 
         return {
+            "success": True,
+            "filled": False
+        }
 
-            "status": "SUCCESS"
+    # ==========================
+    # VERIFY SELL
+    # ==========================
 
+    def verify_sell(self, pair, order_id):
+
+        result = private.get_order(
+            pair,
+            order_id
+        )
+
+        if result.get("success") != 1:
+
+            return {
+                "success": False,
+                "filled": False,
+                "message": result.get("error", "VERIFY FAILED")
+            }
+
+        data = result["return"]
+
+        sell = data.get("sell", {})
+
+        status = sell.get("status", "")
+
+        if status.lower() == "filled":
+
+            return {
+                "success": True,
+                "filled": True,
+                "price": float(sell.get("price", 0))
+            }
+
+        return {
+            "success": True,
+            "filled": False
+        }
+
+    # ==========================
+    # CANCEL
+    # ==========================
+
+    def cancel(self, pair, order_id, order_type):
+
+        result = private.cancel_order(
+            pair,
+            order_id,
+            order_type
+        )
+
+        if result.get("success") != 1:
+
+            return {
+                "success": False,
+                "message": result.get("error", "CANCEL FAILED")
+            }
+
+        return {
+            "success": True
         }
 
 
