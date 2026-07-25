@@ -25,12 +25,44 @@
 
         <tr>
             <td>Profit</td>
-            <td>{{ position.pnl_percent }}</td>
+            <td>
+
+            {% if "+" in position.pnl_percent %}
+
+            <span style="color:#22c55e;font-weight:bold;">
+            {{ position.pnl_percent }}
+            </span>
+
+            {% else %}
+
+            <span style="color:#ef4444;font-weight:bold;">
+            {{ position.pnl_percent }}
+            </span>
+
+            {% endif %}
+
+            </td>
         </tr>
 
         <tr>
             <td>Profit (Rp)</td>
-            <td>{{ position.pnl }}</td>
+            <td>
+
+            {% if "+" in position.pnl_percent %}
+
+            <span style="color:#22c55e;">
+            {{ position.pnl }}
+            </span>
+
+            {% else %}
+
+            <span style="color:#ef4444;">
+            {{ position.pnl }}
+            </span>
+
+            {% endif %}
+
+            </td>
         </tr>
 
         <tr>
