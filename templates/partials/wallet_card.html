@@ -1,0 +1,26 @@
+<div class="card">
+
+    <div class="card-title">
+        💰 WALLET
+    </div>
+
+    <table class="info-table">
+
+        <tr>
+            <td>IDR Balance</td>
+            <td>{{ wallet.idr or "Rp -" }}</td>
+        </tr>
+
+        <tr>
+            <td>Coin Balance</td>
+            <td>{{ wallet.coin_balance or "-" }}</td>
+        </tr>
+
+        <tr>
+            <td>Total Asset</td>
+            <td>{{ wallet.total_asset or "Rp -" }}</td>
+        </tr>
+
+    </table>
+
+</div>
