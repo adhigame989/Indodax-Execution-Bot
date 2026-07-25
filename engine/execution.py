@@ -44,6 +44,8 @@ class ExecutionEngine:
 
         self.last_buy_failed = 0
 
+        self.qty = 0
+
     def configure(
         self,
         coin,
