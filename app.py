@@ -145,6 +145,17 @@ def home():
         "equity": 0
 
         }
+
+    position = {
+        "active": False,
+        "coin": "",
+        "buy_price": "",
+        "current_price": "",
+        "pnl_percent": "",
+        "pnl": "",
+        "highest": "",
+        "hold_time": ""
+        }
     
     return render_template(
         "index.html",
