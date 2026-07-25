@@ -160,25 +160,6 @@ def home():
 
         }
 
-    active_position = None
-
-        if status.get("state") in ["HOLDING", "TP_ZONE", "TRAILING"]:
-
-            active_position = {
-
-                "coin": status.get("coin", "-"),
-
-                "buy_price": status.get("buy_price"),
-
-                "current_price": status.get("current_price"),
-
-                "capital": status.get("capital"),
-
-                "qty": status.get("qty"),
-
-                "highest_price": format_rupiah(status.get("highest_price", 0))
-            }
-
     hold_time = "-"
 
     if engine.buy_time:
