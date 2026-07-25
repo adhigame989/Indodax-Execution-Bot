@@ -38,6 +38,10 @@ class ExecutionEngine:
 
         self.tp_activated = False
 
+        self.order_id = None
+
+        self.sell_order_id = None
+
     def configure(
         self,
         coin,
@@ -101,7 +105,7 @@ class ExecutionEngine:
 
                     print(
                         f"[{self.coin}] "
-                        f"Current: {current_price:,.0f} | "
+                        f"Current: {self.current_price:,.0f} | "
                         f"Entry: {self.entry_price:,.0f}"
                     )
 
@@ -120,16 +124,39 @@ class ExecutionEngine:
                     self.entry_price,
 
                     self.capital
+                )
+                
+                if result["success"]:
+
+                    self.order_id = result["order_id"]
+
+                    print(f"BUY ORDER CREATED : {self.order_id}")
+
+                    self.state = BotState.VERIFY_BUY
+
+                else:
+
+                    print(result["message"])
+
+                    self.state = BotState.WAIT_ENTRY
+
+            elif self.state == BotState.VERIFY_BUY:
+
+                verify = order.verify_buy(
+
+                    self.coin,
+
+                    self.order_id
 
                 )
 
-                if result["success"]:
+                if verify["success"] and verify["filled"]:
 
-                    self.buy_price = result["price"]
+                    self.buy_price = verify["price"]
 
-                    self.highest_price = result["price"]
+                    self.highest_price = verify["price"]
 
-                    qty = self.capital / self.buy_price
+                    qty = verify["qty"]
 
                     position_manager.add(
 
@@ -143,31 +170,17 @@ class ExecutionEngine:
 
                     )
 
-                    self.state = BotState.VERIFY_ORDER
-
-            elif self.state == BotState.VERIFY_ORDER:
-
-                verify = order.verify()
-
-                if verify["status"] == "SUCCESS":
-
-                    print("ORDER VERIFIED")
+                    print("BUY VERIFIED")
 
                     self.state = BotState.HOLDING
 
-                elif verify["status"] == "PENDING":
+                elif verify["success"]:
 
-                    print("WAIT ORDER FILLED")
-
-                elif verify["status"] == "PARTIAL":
-
-                    print("PARTIAL FILLED")
+                    print("WAIT BUY FILL")
 
                 else:
 
-                    print("BUY FAILED")
-
-                    self.state = BotState.WAIT_ENTRY
+                    print(verify.get("message", "VERIFY FAILED"))
                     
             elif self.state == BotState.HOLDING:
 
@@ -231,21 +244,53 @@ class ExecutionEngine:
 
             elif self.state == BotState.SELLING:
 
+                qty = self.capital / self.buy_price
+
                 result = order.sell(
 
                     self.coin,
 
-                    self.current_price
+                    self.current_price,
+
+                    qty
 
                 )
 
                 if result["success"]:
 
-                    print("SELL COMPLETE")
+                    self.sell_order_id = result["order_id"]
+
+                    self.state = BotState.VERIFY_SELL
+
+                else:
+
+                    print(result["message"])
+
+            elif self.state == BotState.VERIFY_SELL:
+
+                verify = order.verify_sell(
+
+                    self.coin,
+
+                    self.sell_order_id
+
+                )
+
+                if verify["success"] and verify["filled"]:
 
                     position_manager.remove(self.coin)
 
+                    print("SELL VERIFIED")
+
                     self.state = BotState.FINISHED
+
+                elif verify["success"]:
+
+                    print("WAIT SELL FILL")
+
+                else:
+
+                    print(verify.get("message", "VERIFY FAILED"))
             
             elif self.state == BotState.FINISHED:
 
