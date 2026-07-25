@@ -13,17 +13,22 @@
 
         <tr>
             <td>Status</td>
-            <td>{{ engine.state }}</td>
+            <td>{{ engine.state or "-" }}</td>
         </tr>
 
         <tr>
-            <td>Entry</td>
+            <td>Entry Price</td>
             <td>{{ engine.entry_price or "-" }}</td>
         </tr>
 
         <tr>
-            <td>Trade Amount</td>
-            <td>Rp {{ engine.trade_amount or "-" }}</td>
+            <td>Current Price</td>
+            <td>{{ engine.current_price or "-" }}</td>
+        </tr>
+
+        <tr>
+            <td>Capital</td>
+            <td>{{ engine.capital or "-" }}</td>
         </tr>
 
     </table>
