@@ -207,6 +207,7 @@ def home():
 
         }
     
+    cfg = config_manager.load()
     config_data = {
 
         "coin": cfg.get("coin"),
@@ -260,6 +261,14 @@ def save_config():
     cfg["trailing_gap"] = int(request.form["trailing_gap"])
 
     config_manager.save(cfg)
+   
+    engine.configure(
+        coin=cfg["coin"],
+        entry_price=cfg["entry_price"],
+        take_profit=cfg["tp_zone"][0],
+        trailing_gap=cfg["trailing_gap"],
+        capital=cfg["capital"]
+        )
 
     return redirect("/")
     
