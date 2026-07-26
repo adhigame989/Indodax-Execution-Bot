@@ -14,6 +14,7 @@ from core.position_manager import position_manager
 from engine.recovery import recovery
 from api.private import private
 from core.wallet_manager import wallet
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -313,6 +314,50 @@ def load_default():
     )
 
     return redirect("/")
+
+@app.get("/api/validate_coin")
+def validate_coin():
+
+    coin = request.args.get("coin", "").upper().strip()
+
+    if not coin:
+        return jsonify({
+            "valid": False,
+            "price": None
+        })
+
+    try:
+
+        ticker = api.get_ticker()
+
+        pair = coin.lower()
+
+        if pair not in ticker["tickers"]:
+
+            return jsonify({
+                "valid": False,
+                "price": None
+            })
+
+        data = ticker["tickers"][pair]
+
+        return jsonify({
+
+            "valid": True,
+
+            "price": int(float(data["last"]))
+
+        })
+
+    except Exception:
+
+        return jsonify({
+
+            "valid": False,
+
+            "price": None
+
+        })
     
 @app.route("/health")
 def health():
