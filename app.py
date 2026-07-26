@@ -272,6 +272,20 @@ def save_config():
 
     return redirect("/")
     
+@app.post("/bot/start")
+def start_bot():
+
+    config_manager.set_running(True)
+
+    return redirect("/")
+
+@app.post("/bot/stop")
+def stop_bot():
+
+    config_manager.set_running(False)
+
+    return redirect("/")
+    
 @app.route("/health")
 def health():
 
