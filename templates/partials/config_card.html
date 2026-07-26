@@ -11,58 +11,111 @@
 
             <tr>
                 <td>Coin</td>
+
                 <td>
+
                     <input
+                        id="coin"
                         type="text"
                         name="coin"
                         value="{{ config_data.coin }}">
+
+                    <div id="coin_status"
+                         style="
+                            margin-top:8px;
+                            font-size:13px;
+                            font-weight:bold;
+                            color:#999;
+                         ">
+
+                        Checking...
+
+                    </div>
+
+                    <div id="coin_price"
+                         style="
+                            margin-top:4px;
+                            font-size:13px;
+                            color:#ccc;
+                         ">
+
+                        Current Value : -
+
+                    </div>
+
                 </td>
+
             </tr>
 
             <tr>
+
                 <td>Entry Price</td>
+
                 <td>
+
                     <input
                         type="number"
                         name="entry_price"
                         value="{{ config_data.entry_price_raw }}">
+
                 </td>
+
             </tr>
 
             <tr>
+
                 <td>Capital</td>
+
                 <td>
+
                     <input
                         type="number"
                         name="capital"
                         value="{{ config_data.capital_raw }}">
+
                 </td>
+
             </tr>
 
             <tr>
+
                 <td>Take Profit</td>
+
                 <td>
+
                     <input
                         type="number"
                         name="tp"
                         value="{{ config_data.take_profit }}">
+
                 </td>
+
             </tr>
 
             <tr>
+
                 <td>Trailing Gap</td>
+
                 <td>
+
                     <input
                         type="number"
                         name="trailing_gap"
                         value="{{ config_data.trailing_gap }}">
+
                 </td>
+
             </tr>
 
         </table>
 
-        <button class="btn-save" type="submit">
+        <button
+            id="save_btn"
+            class="btn-save"
+            type="submit">
+
             💾 SAVE CONFIG
+
         </button>
 
     </form>
@@ -72,7 +125,9 @@
         <form method="POST" action="/bot/start">
 
             <button class="btn-green" type="submit">
+
                 🟢 START BOT
+
             </button>
 
         </form>
@@ -80,7 +135,9 @@
         <form method="POST" action="/bot/stop">
 
             <button class="btn-red" type="submit">
+
                 🔴 STOP BOT
+
             </button>
 
         </form>
@@ -89,10 +146,116 @@
 
     <form method="POST" action="/config/default">
 
-        <button class="btn-default" type="submit">
+        <button
+            class="btn-default"
+            type="submit">
+
             ↺ LOAD DEFAULT
+
         </button>
 
     </form>
 
 </div>
+
+<script>
+
+let timer = null;
+
+const coinInput = document.getElementById("coin");
+
+const statusDiv = document.getElementById("coin_status");
+
+const priceDiv = document.getElementById("coin_price");
+
+const saveBtn = document.getElementById("save_btn");
+
+function rupiah(value){
+
+    return "Rp " + Number(value).toLocaleString("id-ID");
+
+}
+
+async function validateCoin(){
+
+    const coin = coinInput.value.trim();
+
+    if(coin===""){
+
+        statusDiv.innerHTML="⚪ Empty";
+
+        statusDiv.style.color="#999";
+
+        priceDiv.innerHTML="Current Value : -";
+
+        saveBtn.disabled=true;
+
+        return;
+
+    }
+
+    try{
+
+        const response=await fetch(
+
+            "/api/validate_coin?coin="+encodeURIComponent(coin)
+
+        );
+
+        const data=await response.json();
+
+        if(data.valid){
+
+            statusDiv.innerHTML="🟢 VALID PAIR";
+
+            statusDiv.style.color="#33dd66";
+
+            priceDiv.innerHTML=
+
+                "Current Value : "+rupiah(data.price);
+
+            saveBtn.disabled=false;
+
+        }
+
+        else{
+
+            statusDiv.innerHTML="🔴 INVALID PAIR";
+
+            statusDiv.style.color="#ff4444";
+
+            priceDiv.innerHTML=
+
+                "Current Value : N/A";
+
+            saveBtn.disabled=true;
+
+        }
+
+    }
+
+    catch(e){
+
+        statusDiv.innerHTML="🟠 API ERROR";
+
+        statusDiv.style.color="orange";
+
+        priceDiv.innerHTML="Current Value : N/A";
+
+        saveBtn.disabled=true;
+
+    }
+
+}
+
+coinInput.addEventListener("input",function(){
+
+    clearTimeout(timer);
+
+    timer=setTimeout(validateCoin,500);
+
+});
+
+validateCoin();
+
+    </script>
