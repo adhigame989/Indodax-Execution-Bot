@@ -215,23 +215,25 @@ def home():
 
         "coin": cfg.get("coin"),
 
-        "entry_price": format_rupiah(
-            cfg.get("entry_price",0)
-        ),
-
-        "entry_price_raw": cfg.get("entry_price",0),
-
         "capital": format_rupiah(
             cfg.get("capital",0)
         ),
 
         "capital_raw": cfg.get("capital",0),
 
-        "take_profit": cfg.get("tp_zone",[0])[0],
+        "entry_price": format_rupiah(
+            cfg.get("entry_price",0)
+        ),
 
-        "trailing_gap": cfg.get("trailing_gap",0),
+        "entry_price_raw": cfg.get("entry_price",0),
 
-        "interval":60
+        "target_price": format_rupiah(
+            cfg.get("target_price",0)
+        ),
+
+        "target_price_raw": cfg.get("target_price",0),
+
+        "trailing_gap": cfg.get("trailing_gap",1)
 
         }
     
@@ -261,8 +263,8 @@ def save_config():
 
     cfg["capital"] = int(request.form["capital"])
 
-    cfg["tp_zone"][0] = int(request.form["tp"])
-
+    cfg["target_price"] = int(request.form["target_price"])
+    
     cfg["trailing_gap"] = int(request.form["trailing_gap"])
 
     config_manager.save(cfg)
