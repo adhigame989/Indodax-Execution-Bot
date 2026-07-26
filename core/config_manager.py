@@ -40,10 +40,15 @@ class ConfigManager:
         cfg = self.load()
 
         cfg["coin"] = "BTC_IDR"
-        cfg["entry_price"] = 0
+
         cfg["capital"] = 100000
-        cfg["tp_zone"] = [3]
+
+        cfg["entry_price"] = 0
+
+        cfg["target_price"] = 0
+
         cfg["trailing_gap"] = 1
+
         cfg["running"] = False
 
         self.save(cfg)
