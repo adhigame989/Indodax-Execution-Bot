@@ -286,6 +286,13 @@ def stop_bot():
 
     return redirect("/")
     
+@app.post("/config/default")
+def load_default():
+
+    config_manager.load_default()
+
+    return redirect("/")
+    
 @app.route("/health")
 def health():
 
