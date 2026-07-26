@@ -25,35 +25,30 @@ class ConfigManager:
             json.dump(data, f, indent=4)
 
     def set_running(self, running):
-        config = self.load()
 
-        config["running"] = running
+        cfg = self.load()
 
-        self.save(config)
+        cfg["running"] = running
 
-        return config
-        
+        self.save(cfg)
+
+        return cfg
+
+
     def load_default(self):
 
-        config={
+        cfg = self.load()
 
-            "coin":"BTC_IDR",
+        cfg["coin"] = "BTC_IDR"
+        cfg["entry_price"] = 0
+        cfg["capital"] = 100000
+        cfg["tp_zone"] = [3]
+        cfg["trailing_gap"] = 1
+        cfg["running"] = False
 
-            "entry_price":0,
+        self.save(cfg)
 
-            "capital":100000,
-
-            "take_profit":3,
-
-            "trailing_gap":1,
-
-            "running":False
-
-        }
-
-        self.save(config)
-
-        return config
+        return cfg
 
 
 config_manager = ConfigManager()
