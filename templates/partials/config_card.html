@@ -4,6 +4,7 @@
         ⚙ CONFIG
     </div>
 
+    <!-- SAVE CONFIG -->
     <form method="POST" action="/save_config">
 
         <table class="info-table">
@@ -60,45 +61,38 @@
 
         </table>
 
-        <div class="button-group">
+        <button class="btn-save" type="submit">
+            💾 SAVE CONFIG
+        </button>
+
+    </form>
+
+    <div class="button-group">
 
         <form method="POST" action="/bot/start">
 
-        <button class="btn-green" type="submit">
-        🟢 START BOT
-        </button>
+            <button class="btn-green" type="submit">
+                🟢 START BOT
+            </button>
 
         </form>
 
         <form method="POST" action="/bot/stop">
 
-        <button class="btn-red" type="submit">
-        🔴 STOP BOT
-        </button>
+            <button class="btn-red" type="submit">
+                🔴 STOP BOT
+            </button>
 
         </form>
 
-        </div>
+    </div>
 
-        <form method="POST" action="/config/default">
+    <form method="POST" action="/config/default">
 
         <button class="btn-default" type="submit">
-
-        ↺ LOAD DEFAULT
-
+            ↺ LOAD DEFAULT
         </button>
 
-        </form>
-        
-        <div style="margin-top:15px">
-
-        <button class="btn-save" type="submit">
-
-            💾 SAVE CONFIG
-
-        </button>
-
-        </div>
     </form>
 
 </div>
