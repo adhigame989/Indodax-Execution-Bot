@@ -300,7 +300,15 @@ def stop_bot():
 @app.post("/config/default")
 def load_default():
 
-    config_manager.load_default()
+    cfg = config_manager.load_default()
+
+    engine.configure(
+        coin=cfg["coin"],
+        entry_price=cfg["entry_price"],
+        take_profit=cfg["tp_zone"][0],
+        trailing_gap=cfg["trailing_gap"],
+        capital=cfg["capital"]
+    )
 
     return redirect("/")
     
