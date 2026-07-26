@@ -63,6 +63,8 @@ def init_storage():
 
 init_storage()
 
+api.update()
+
 monitor.start()
 
 cfg = config_manager.load()
@@ -318,7 +320,7 @@ def load_default():
 @app.get("/api/validate_coin")
 def validate_coin():
 
-    coin = request.args.get("coin", "").upper().strip()
+    coin = request.args.get("coin", "").strip().lower()
 
     if not coin:
         return jsonify({
@@ -328,28 +330,26 @@ def validate_coin():
 
     try:
 
-        ticker = api.get_ticker()
+        ticker = api.get_ticker(coin)
 
-        pair = coin.lower()
-
-        if pair not in ticker["tickers"]:
+        if ticker is None:
 
             return jsonify({
                 "valid": False,
                 "price": None
             })
 
-        data = ticker["tickers"][pair]
-
         return jsonify({
 
             "valid": True,
 
-            "price": int(float(data["last"]))
+            "price": ticker["last"]
 
         })
 
-    except Exception:
+    except Exception as e:
+
+        print(e)
 
         return jsonify({
 
