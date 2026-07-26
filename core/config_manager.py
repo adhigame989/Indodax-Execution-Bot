@@ -24,5 +24,14 @@ class ConfigManager:
 
             json.dump(data, f, indent=4)
 
+    def set_running(self, running):
+        config = self.load()
+
+        config["running"] = running
+
+        self.save(config)
+
+        return config
+
 
 config_manager = ConfigManager()
