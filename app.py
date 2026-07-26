@@ -250,6 +250,8 @@ def save_config():
 
     cfg = config_manager.load()
 
+    cfg.setdefault("running", True)
+
     cfg["coin"] = request.form["coin"]
 
     cfg["entry_price"] = int(request.form["entry_price"])
