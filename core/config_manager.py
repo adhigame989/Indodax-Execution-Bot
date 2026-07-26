@@ -32,6 +32,28 @@ class ConfigManager:
         self.save(config)
 
         return config
+        
+    def load_default(self):
+
+        config={
+
+            "coin":"BTC_IDR",
+
+            "entry_price":0,
+
+            "capital":100000,
+
+            "take_profit":3,
+
+            "trailing_gap":1,
+
+            "running":False
+
+        }
+
+        self.save(config)
+
+        return config
 
 
 config_manager = ConfigManager()
