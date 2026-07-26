@@ -275,14 +275,25 @@ def save_config():
 @app.post("/bot/start")
 def start_bot():
 
-    config_manager.set_running(True)
+    cfg = config_manager.set_running(True)
+
+    engine.configure(
+        coin=cfg["coin"],
+        entry_price=cfg["entry_price"],
+        take_profit=cfg["tp_zone"][0],
+        trailing_gap=cfg["trailing_gap"],
+        capital=cfg["capital"]
+    )
+
+    engine.start()
 
     return redirect("/")
-
 @app.post("/bot/stop")
 def stop_bot():
 
     config_manager.set_running(False)
+
+    engine.stop()
 
     return redirect("/")
     
