@@ -267,3 +267,33 @@ body{
     background:#15803d;
 
 }
+
+.button-group{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.button-group form{
+flex:1;
+}
+
+.btn-green{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#17b857;
+color:white;
+font-weight:bold;
+}
+
+.btn-red{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#d33;
+color:white;
+font-weight:bold;
+}
