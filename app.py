@@ -39,7 +39,14 @@ def init_storage():
     os.makedirs(config.DATA_DIR, exist_ok=True)
 
     defaults = {
-        "config.json": {},
+        "config.json": {
+            "coin": "BTC_IDR",
+            "capital": 100000,
+            "entry_price": 0,
+            "target_price": 0,
+            "trailing_gap": 1,
+            "running": True
+        },
         "active_trades.json": [],
         "history.json": [],
         "bot_state.json": {
@@ -70,17 +77,11 @@ monitor.start()
 cfg = config_manager.load()
 
 engine.configure(
-
-    coin=cfg["coin"],
-
-    entry_price=cfg["entry_price"],
-
-    target_price=cfg["target_price"],
-
-    trailing_gap=cfg["trailing_gap"],
-
-    capital=cfg["capital"]
-
+    coin=cfg.get("coin", "BTC_IDR"),
+    entry_price=cfg.get("entry_price", 0),
+    target_price=cfg.get("target_price", 0),
+    trailing_gap=cfg.get("trailing_gap", 1),
+    capital=cfg.get("capital", 100000)
 )
 
 if not recovery.restore(engine):
@@ -88,17 +89,11 @@ if not recovery.restore(engine):
     cfg = config_manager.load()
 
     engine.configure(
-
-        coin=cfg["coin"],
-
-        entry_price=cfg["entry_price"],
-
-        target_price=cfg["target_price"],
-
-        trailing_gap=cfg["trailing_gap"],
-
-        capital=cfg["capital"]
-
+        coin=cfg.get("coin", "BTC_IDR"),
+        entry_price=cfg.get("entry_price", 0),
+        target_price=cfg.get("target_price", 0),
+        trailing_gap=cfg.get("trailing_gap", 1),
+        capital=cfg.get("capital", 100000)
     )
 
 engine.start()
