@@ -155,6 +155,7 @@ def home():
     status["current_price"] = format_rupiah(status.get("current_price", 0))
     status["capital"] = format_rupiah(status.get("capital", 0))
     
+    cfg = config_manager.load()
     wallet = wallet_manager.get_wallet_summary(cfg.get("coin"))
 
     hold_time = "-"
@@ -202,7 +203,7 @@ def home():
 
         }
     
-    cfg = config_manager.load()
+    
     config_data = {
 
         "coin": cfg.get("coin"),
@@ -400,9 +401,9 @@ def api_balance():
 
     return {
 
-        "idr": wallet.get_idr_balance(),
+        "idr": wallet_manager.get_idr_balance(),
 
-        "btc": wallet.get_coin_balance("btc")
+        "btc": wallet_manager.get_coin_balance("btc")
     }
 
 @app.route("/api/config")
