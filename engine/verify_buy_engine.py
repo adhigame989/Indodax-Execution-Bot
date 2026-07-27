@@ -18,6 +18,7 @@ class VerifyBuyEngine:
             engine.order_id
 
         )
+        print("VERIFY RESULT =", verify)
 
         if not verify["success"]:
 
@@ -42,6 +43,8 @@ class VerifyBuyEngine:
 
         engine.qty = float(verify["qty"])
 
+        print(">>> CREATE ACTIVE POSITION <<<")
+
         position_manager.add(
 
             coin=engine.coin,
@@ -63,6 +66,8 @@ class VerifyBuyEngine:
 
         engine.buy_time = datetime.now()
         engine.state = BotState.HOLDING
+        
+        print(">>> STATE CHANGED TO HOLDING <<<")
 
 
 verify_buy_engine = VerifyBuyEngine()
