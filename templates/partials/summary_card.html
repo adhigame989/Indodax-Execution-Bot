@@ -1,0 +1,141 @@
+<div class="card">
+
+    <div class="card-title">
+        🤖 BOT SUMMARY
+    </div>
+
+    <table class="info-table">
+
+        <tr>
+
+            <td>Status</td>
+
+            <td align="right">
+
+                {% if bot_status=="RUNNING" %}
+
+                <span style="color:#22c55e;font-weight:bold;">
+                    🟢 RUNNING
+                </span>
+
+                {% else %}
+
+                <span style="color:#ef4444;font-weight:bold;">
+                    🔴 STOPPED
+                </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>Engine</td>
+
+            <td align="right">
+
+                {% if engine.state=="WAIT_ENTRY" %}
+
+                <span style="color:#3b82f6;font-weight:bold;">
+                    WAIT ENTRY
+                </span>
+
+                {% elif engine.state=="BUYING" %}
+
+                <span style="color:#f59e0b;font-weight:bold;">
+                    BUYING
+                </span>
+
+                {% elif engine.state=="VERIFY_BUY" %}
+
+                <span style="color:#f59e0b;font-weight:bold;">
+                    VERIFY BUY
+                </span>
+
+                {% elif engine.state=="HOLDING" %}
+
+                <span style="color:#22c55e;font-weight:bold;">
+                    HOLDING
+                </span>
+
+                {% elif engine.state=="TP_ZONE" %}
+
+                <span style="color:#a855f7;font-weight:bold;">
+                    TARGET ACTIVE
+                </span>
+
+                {% elif engine.state=="TRAILING" %}
+
+                <span style="color:#06b6d4;font-weight:bold;">
+                    TRAILING
+                </span>
+
+                {% elif engine.state=="SELLING" %}
+
+                <span style="color:#ef4444;font-weight:bold;">
+                    SELLING
+                </span>
+
+                {% else %}
+
+                {{ engine.state }}
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>Coin</td>
+
+            <td align="right">
+
+                <b>{{ engine.coin }}</b>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>Current</td>
+
+            <td align="right">
+
+                <b>{{ engine.current_price }}</b>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>API</td>
+
+            <td align="right">
+
+                {% if api_status=="Connected" %}
+
+                <span style="color:#22c55e;">
+                    🟢 Connected
+                </span>
+
+                {% else %}
+
+                <span style="color:#ef4444;">
+                    🔴 Disconnected
+                </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
