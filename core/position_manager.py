@@ -38,7 +38,8 @@ class PositionManager:
             coin,
             buy_price,
             capital,
-            qty):
+            qty,
+            target_price):
 
         positions = self.load()
 
@@ -51,6 +52,8 @@ class PositionManager:
             "capital": capital,
 
             "qty": qty,
+
+            "target_price": target_price,
 
             "highest_price": buy_price,
 
