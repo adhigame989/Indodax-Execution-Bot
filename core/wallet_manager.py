@@ -39,14 +39,6 @@ class WalletManager:
 
         except Exception:
             return 0
-            
-    def get_coin_balance(self, coin):
-
-        balance = self.get_balance()
-
-        coin = coin.lower().replace("_idr", "")
-
-        return float(balance.get(coin, 0))
 
     def get_total_asset(self, coin):
 
