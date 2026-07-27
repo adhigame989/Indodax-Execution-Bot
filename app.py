@@ -75,7 +75,7 @@ engine.configure(
 
     entry_price=cfg["entry_price"],
 
-    take_profit=cfg["tp_zone"][0],
+    target_price=cfg["target_price"],
 
     trailing_gap=cfg["trailing_gap"],
 
@@ -93,7 +93,7 @@ if not recovery.restore(engine):
 
         entry_price=cfg["entry_price"],
 
-        take_profit=cfg["tp_zone"][0],
+        target_price=cfg["target_price"],
 
         trailing_gap=cfg["trailing_gap"],
 
@@ -272,7 +272,7 @@ def save_config():
     engine.configure(
         coin=cfg["coin"],
         entry_price=cfg["entry_price"],
-        take_profit=cfg["tp_zone"][0],
+        target_price=cfg["target_price"],
         trailing_gap=cfg["trailing_gap"],
         capital=cfg["capital"]
         )
@@ -287,7 +287,7 @@ def start_bot():
     engine.configure(
         coin=cfg["coin"],
         entry_price=cfg["entry_price"],
-        take_profit=cfg["tp_zone"][0],
+        target_price=cfg["target_price"],
         trailing_gap=cfg["trailing_gap"],
         capital=cfg["capital"]
     )
@@ -312,7 +312,7 @@ def load_default():
     engine.configure(
         coin=cfg["coin"],
         entry_price=cfg["entry_price"],
-        take_profit=cfg["tp_zone"][0],
+        target_price=cfg["target_price"],
         trailing_gap=cfg["trailing_gap"],
         capital=cfg["capital"]
     )
