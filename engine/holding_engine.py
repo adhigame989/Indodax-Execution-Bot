@@ -28,15 +28,6 @@ class HoldingEngine:
 
             )
 
-        # Hitung Profit %
-        profit = (
-
-            (engine.current_price - engine.buy_price)
-
-            / engine.buy_price
-
-        ) * 100
-
         print("=" * 40)
 
         print("HOLDING")
@@ -51,14 +42,19 @@ class HoldingEngine:
 
         print(f"Highest : {engine.highest_price:,.0f}")
 
-        print(f"Profit  : {profit:.2f}%")
+        print(f"Target  : {engine.target_price:,.0f}")
 
-        # Masuk TP Zone
-        if profit >= engine.take_profit:
+        # Target Price tercapai
+
+        if (
+            engine.target_price > 0
+            and
+            engine.current_price >= engine.target_price
+        ):
 
             print("=" * 40)
 
-            print("TP ZONE REACHED")
+            print("TARGET PRICE REACHED")
 
             print("=" * 40)
 
