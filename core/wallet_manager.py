@@ -29,22 +29,16 @@ class WalletManager:
 
         return float(balance.get("idr", 0))
 
-    def get_coin_balance(coin):
+    def get_coin_balance(self, coin):
+
         if not coin:
             return 0
 
+        balance = self.get_balance()
+
         coin = str(coin).lower().replace("_idr", "")
 
-        try:
-            info = private.get_info()
-
-            if not info:
-                return 0
-
-            return float(info["balance"].get(coin, 0))
-
-        except Exception:
-            return 0
+        return float(balance.get(coin, 0))
 
     def get_total_asset(self, coin):
 
