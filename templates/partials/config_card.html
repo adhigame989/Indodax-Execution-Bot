@@ -225,14 +225,13 @@ async function validateCoin(){
 
             if(selectedCoin!==coin){
 
-                entryPrice.value=data.price;
+                entryPrice.value=Math.round(data.price);
 
-                targetPrice.value=data.price;
+                targetPrice.value=Math.round(data.price);
 
                 selectedCoin=coin;
 
             }
-
         }
 
         else{
@@ -274,5 +273,11 @@ coinInput.addEventListener("input",function(){
 });
 
 validateCoin();
+
+setInterval(function(){
+
+    validateCoin();
+
+},5000);
 
     </script>
