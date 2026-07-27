@@ -37,6 +37,36 @@ class WalletManager:
 
         return float(balance.get(coin, 0))
 
+    def get_total_asset(self, coin):
+
+        idr = self.get_idr_balance()
+
+        qty = self.get_coin_balance(coin)
+
+        if qty <= 0:
+            return idr
+
+        from api.indodax import api
+
+        ticker = api.get_ticker(coin)
+
+        if ticker is None:
+            return idr
+
+        return idr + (qty * ticker["last"])
+
+    def get_wallet_summary(self, coin):
+
+        return {
+
+            "idr": self.get_idr_balance(),
+
+            "coin": self.get_coin_balance(coin),
+
+            "equity": self.get_total_asset(coin)
+
+        }
+
     def can_buy(self, capital):
 
         return self.get_idr_balance() >= capital
