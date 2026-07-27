@@ -13,7 +13,7 @@ from core.config_manager import config_manager
 from core.position_manager import position_manager
 from engine.recovery import recovery
 from api.private import private
-from core.wallet_manager import wallet
+from core.wallet_manager import wallet as wallet_manager
 from flask import jsonify
 
 app = Flask(__name__)
@@ -155,15 +155,7 @@ def home():
     status["current_price"] = format_rupiah(status.get("current_price", 0))
     status["capital"] = format_rupiah(status.get("capital", 0))
     
-    wallet = {
-
-        "idr": 0,
-
-        "coin": 0,
-
-        "equity": 0
-
-        }
+    wallet = wallet_manager.get_wallet_summary(cfg.get("coin"))
 
     hold_time = "-"
 
