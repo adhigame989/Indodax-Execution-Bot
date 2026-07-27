@@ -23,6 +23,12 @@ class WalletManager:
 
         return info.get("balance", {})
 
+    def get_idr_balance(self):
+
+        balance = self.get_balance()
+
+        return float(balance.get("idr", 0))
+
     def get_coin_balance(coin):
         if not coin:
             return 0
