@@ -9,78 +9,78 @@
     <table class="info-table">
 
         <tr>
-            <td>Status</td>
-            <td>
-                {% if engine.state == "HOLDING" %}
-                    🟢 HOLDING
-                {% elif engine.state == "TP_ZONE" %}
-                    🟡 TP ZONE
-                {% elif engine.state == "TRAILING" %}
-                    🔵 TRAILING
-                {% elif engine.state == "SELLING" %}
-                    🔴 SELLING
-                {% else %}
-                    {{ engine.state }}
-                {% endif %}
-            </td>
-        </tr>
-
-        <tr>
             <td>Coin</td>
-            <td>{{ position.coin }}</td>
-        </tr>
-
-        <tr>
-            <td>Capital</td>
-            <td>{{ position.capital }}</td>
-        </tr>
-
-        <tr>
-            <td>Qty</td>
-            <td>{{ position.qty }}</td>
+            <td><b>{{ position.coin }}</b></td>
         </tr>
 
         <tr>
             <td>Buy Price</td>
-            <td>{{ position.buy_price }}</td>
+            <td><b>{{ position.buy_price }}</b></td>
         </tr>
 
         <tr>
             <td>Current Price</td>
-            <td>{{ position.current_price }}</td>
+            <td><b>{{ position.current_price }}</b></td>
+        </tr>
+
+        <tr>
+            <td>Target Price</td>
+            <td>
+                <b>{{ config_data.target_price }}</b>
+            </td>
         </tr>
 
         <tr>
             <td>Highest Price</td>
-            <td>{{ position.highest }}</td>
+            <td>
+                <b>{{ position.highest or "-" }}</b>
+            </td>
         </tr>
 
         <tr>
-            <td>Hold Time</td>
-            <td>{{ position.hold_time }}</td>
+            <td>Trailing</td>
+            <td>
+
+                {% if engine.state=="TRAILING" %}
+
+                    <span style="color:#06b6d4;font-weight:bold;">
+                        🔵 ACTIVE
+                    </span>
+
+                {% else %}
+
+                    <span style="color:#9ca3af;">
+                        OFF
+                    </span>
+
+                {% endif %}
+
+            </td>
         </tr>
 
         <tr>
+            <td>Capital</td>
+            <td>
+                <b>{{ position.capital }}</b>
+            </td>
+        </tr>
 
+        <tr>
             <td>Profit</td>
 
             <td>
 
                 {% if "+" in position.pnl_percent %}
 
-                <span style="color:#22c55e;font-weight:bold;">
-
-                    {{ position.pnl_percent }}
-
-                </span>
+                    <span style="color:#22c55e;font-weight:bold;">
+                        {{ position.pnl_percent }}
+                    </span>
 
                 {% else %}
 
-                <span style="color:#ef4444;font-weight:bold;">
-
-                    {{ position.pnl_percent }}
-
-                </span>
+                    <span style="color:#ef4444;font-weight:bold;">
+                        {{ position.pnl_percent }}
+                    </span>
 
                 {% endif %}
 
@@ -96,19 +96,15 @@
 
                 {% if "+" in position.pnl_percent %}
 
-                <span style="color:#22c55e;">
-
-                    {{ position.pnl }}
-
-                </span>
+                    <span style="color:#22c55e;">
+                        {{ position.pnl }}
+                    </span>
 
                 {% else %}
 
-                <span style="color:#ef4444;">
-
-                    {{ position.pnl }}
-
-                </span>
+                    <span style="color:#ef4444;">
+                        {{ position.pnl }}
+                    </span>
 
                 {% endif %}
 
@@ -117,37 +113,15 @@
         </tr>
 
         <tr>
-            <td>TP Status</td>
+
+            <td>Hold Time</td>
+
             <td>
 
-                {% if engine.tp_activated %}
-
-                    🟢 ACTIVE
-
-                {% else %}
-
-                    ⚪ OFF
-
-                {% endif %}
+                <b>{{ position.hold_time }}</b>
 
             </td>
-        </tr>
 
-        <tr>
-            <td>Trailing</td>
-            <td>
-
-                {% if engine.state == "TRAILING" %}
-
-                    🔵 ACTIVE
-
-                {% else %}
-
-                    ⚪ OFF
-
-                {% endif %}
-
-            </td>
         </tr>
 
     </table>
