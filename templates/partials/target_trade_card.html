@@ -1,34 +1,51 @@
 <div class="card">
 
     <div class="card-title">
-        🎯 TARGET TRADE
+        🎯 TRADE SETUP
     </div>
 
     <table class="info-table">
 
         <tr>
             <td>Coin</td>
-            <td>{{ engine.coin or "-" }}</td>
-        </tr>
-
-        <tr>
-            <td>Status</td>
-            <td>{{ engine.state or "-" }}</td>
+            <td>
+                <b>{{ engine.coin or "-" }}</b>
+            </td>
         </tr>
 
         <tr>
             <td>Entry Price</td>
-            <td>{{ engine.entry_price or "-" }}</td>
+            <td>
+                <b>{{ config_data.entry_price }}</b>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Target Price</td>
+            <td>
+                <b>{{ config_data.target_price }}</b>
+            </td>
         </tr>
 
         <tr>
             <td>Current Price</td>
-            <td>{{ engine.current_price or "-" }}</td>
+            <td>
+                <b>{{ engine.current_price }}</b>
+            </td>
         </tr>
 
         <tr>
             <td>Capital</td>
-            <td>{{ engine.capital or "-" }}</td>
+            <td>
+                <b>{{ config_data.capital }}</b>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Trailing Gap</td>
+            <td>
+                <b>{{ config_data.trailing_gap }} %</b>
+            </td>
         </tr>
 
     </table>
