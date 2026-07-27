@@ -49,21 +49,6 @@
 
             <tr>
 
-                <td>Entry Price</td>
-
-                <td>
-
-                    <input
-                        type="number"
-                        name="entry_price"
-                        value="{{ config_data.entry_price_raw }}">
-
-                </td>
-
-            </tr>
-
-            <tr>
-
                 <td>Capital</td>
 
                 <td>
@@ -79,14 +64,31 @@
 
             <tr>
 
-                <td>Take Profit</td>
+                <td>Entry Price</td>
 
                 <td>
 
                     <input
+                        id="entry_price"
                         type="number"
-                        name="tp"
-                        value="{{ config_data.take_profit }}">
+                        name="entry_price"
+                        value="{{ config_data.entry_price_raw }}">
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Target Price</td>
+
+                <td>
+
+                    <input
+                        id="target_price"
+                        type="number"
+                        name="target_price"
+                        value="{{ config_data.target_price_raw }}">
 
                 </td>
 
@@ -170,6 +172,12 @@ const priceDiv = document.getElementById("coin_price");
 
 const saveBtn = document.getElementById("save_btn");
 
+const entryPrice = document.getElementById("entry_price");
+
+const targetPrice = document.getElementById("target_price");
+
+let selectedCoin = "";
+
 function rupiah(value){
 
     return "Rp " + Number(value).toLocaleString("id-ID");
@@ -211,10 +219,19 @@ async function validateCoin(){
             statusDiv.style.color="#33dd66";
 
             priceDiv.innerHTML=
-
                 "Current Value : "+rupiah(data.price);
 
             saveBtn.disabled=false;
+
+            if(selectedCoin!==coin){
+
+                entryPrice.value=data.price;
+
+                targetPrice.value=data.price;
+
+                selectedCoin=coin;
+
+            }
 
         }
 
