@@ -67,6 +67,8 @@ class OrderEngine:
             pair,
             order_id
         )
+        print("VERIFY RESPONSE:")
+        print(result)
 
         if result.get("success") != 1:
 
