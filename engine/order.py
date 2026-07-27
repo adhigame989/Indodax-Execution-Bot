@@ -84,6 +84,16 @@ class OrderEngine:
 
         status = buy.get("status", "")
 
+        print("=" * 50)
+        print("VERIFY BUY DEBUG")
+        print("BUY OBJECT :", buy)
+        print("STATUS     :", status)
+        print("PRICE      :", buy.get("price"))
+        print("ORDER_AMT  :", buy.get("order_amount"))
+        print("REMAIN_RP  :", buy.get("remain_rp"))
+        print("REFUND     :", buy.get("refund"))
+        print("=" * 50)
+
         if status.lower() == "filled":
 
             return {
