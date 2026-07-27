@@ -21,7 +21,7 @@ class ExecutionEngine:
         self.interval = 1
         self.coin = None
         self.entry_price = 0
-        self.take_profit = 0
+        self.target_price = 0
         self.trailing_gap = 0
         self.capital = 0
         self.buy_price = 0
@@ -36,12 +36,23 @@ class ExecutionEngine:
         self.last_buy_failed = 0
         self.buy_time = None
 
-    def configure(self, coin, entry_price, take_profit, trailing_gap, capital):
+    def configure(self,
+                  coin,
+                  entry_price,
+                  target_price,
+                  trailing_gap,
+                  capital):
+
         self.coin = coin.upper()
+
         self.entry_price = float(entry_price)
-        self.take_profit = float(take_profit)
+
+        self.target_price = float(target_price)
+
         self.trailing_gap = float(trailing_gap)
+
         self.capital = float(capital)
+
         self.state = BotState.WAIT_ENTRY
 
     def start(self):
@@ -104,8 +115,8 @@ class ExecutionEngine:
 
             "capital": self.capital,
 
-            "take_profit": self.take_profit,
-
+            "target_price": self.target_price,
+            
             "trailing_gap": self.trailing_gap
 
         }
@@ -113,6 +124,7 @@ class ExecutionEngine:
         self.coin = position["coin"]
         self.buy_price = position["buy_price"]
         self.entry_price = position["buy_price"]
+        self.target_price = position.get("target_price",0)
         self.capital = position["capital"]
         self.qty = position.get("qty",0)
         self.highest_price = position.get("highest_price", self.buy_price)
