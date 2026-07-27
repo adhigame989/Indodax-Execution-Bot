@@ -7,18 +7,47 @@
     <table class="info-table">
 
         <tr>
+
             <td>IDR Balance</td>
-            <td>Rp {{ wallet.idr }}</td>
+
+            <td>
+
+                <b>
+
+                    Rp {{ "{:,.0f}".format(wallet.idr).replace(",", ".") }}
+
+                </b>
+
+            </td>
+
         </tr>
 
         <tr>
+
             <td>Coin Balance</td>
-            <td>{{ wallet.coin }}</td>
+
+            <td>
+
+                <b>{{ wallet.coin }}</b>
+
+            </td>
+
         </tr>
 
         <tr>
+
             <td>Total Asset</td>
-            <td>Rp {{ wallet.equity }}</td>
+
+            <td>
+
+                <b>
+
+                    Rp {{ "{:,.0f}".format(wallet.equity).replace(",", ".") }}
+
+                </b>
+
+            </td>
+
         </tr>
 
     </table>
