@@ -82,6 +82,11 @@ class OrderEngine:
 
         buy = data.get("buy", {})
 
+        print("=" * 60)
+        print("FULL GET ORDER RESPONSE")
+        print(result)
+        print("=" * 60)
+
         status = buy.get("status", "")
 
         print("=" * 50)
