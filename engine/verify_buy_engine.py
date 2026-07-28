@@ -55,6 +55,8 @@ class VerifyBuyEngine:
 
             qty=engine.qty
 
+            target_price=engine.target_price
+
         )
 
         print("=" * 40)
