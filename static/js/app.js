@@ -1,14 +1,14 @@
-async function loadPartial(id,url){
+async function updateDashboard() {
 
-    try{
+    try {
 
-        const res=await fetch(url);
+        const res = await fetch("/api/status");
 
-        const html=await res.text();
+        if (!res.ok) return;
 
-        document.getElementById(id).innerHTML=html;
+        console.log(await res.json());
 
-    }catch(e){
+    } catch (e) {
 
         console.log(e);
 
@@ -16,22 +16,10 @@ async function loadPartial(id,url){
 
 }
 
-async function refreshDashboard(){
+updateDashboard();
 
-    await Promise.all([
+setInterval(() => {
 
-        loadPartial("summary-card","/partial/summary"),
+    location.reload();
 
-        loadPartial("position-card","/partial/position"),
-
-        loadPartial("wallet-card","/partial/wallet"),
-
-        loadPartial("config-card","/partial/config")
-
-    ]);
-
-}
-
-refreshDashboard();
-
-setInterval(refreshDashboard,2000);
+}, 3000);
