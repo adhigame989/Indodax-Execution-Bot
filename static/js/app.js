@@ -1,4 +1,5 @@
 let isEditing = false;
+let isSubmitting = false;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -10,15 +11,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             el.addEventListener("focus",()=>{
 
-                isEditing=true;
+                isEditing = true;
 
             });
 
             el.addEventListener("blur",()=>{
 
-                isEditing=false;
+                setTimeout(()=>{
+
+                    isEditing = false;
+
+                },300);
 
             });
+
+        });
+
+        form.addEventListener("submit",()=>{
+
+            isSubmitting = true;
 
         });
 
@@ -28,11 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function refreshDashboard(){
 
-    if(isEditing){
+    if(isEditing) return;
 
-        return;
-
-    }
+    if(isSubmitting) return;
 
     location.reload();
 
