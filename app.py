@@ -227,7 +227,8 @@ def home():
         "trailing_gap": cfg.get("trailing_gap",1)
 
         }
-    
+
+    trade_setups = trade_manager.get_all()
     return render_template(
         "index.html",
         app_name=config.APP_NAME,
@@ -238,6 +239,7 @@ def home():
         wallet=wallet,
         position=position,
         config_data=config_data,
+        trade_setups=trade_setups,
         bot_status=status.get("status","RUNNING")
     )
 
@@ -262,6 +264,7 @@ def create_trade():
 
     )
 
+    print(trade_manager.get_all())
     return redirect("/")
     
 @app.post("/bot/start")
