@@ -405,6 +405,40 @@ def api_balance():
 def api_config():
 
     return config_manager.load()
+
+@app.route("/partial/summary")
+def partial_summary():
+    return render_template(
+        "partials/summary_card.html",
+        api_status=api_status,
+        btc=btc,
+        engine=status,
+        wallet=wallet,
+        position=position,
+        config_data=config_data,
+        bot_status=status.get("status","RUNNING")
+    )
+
+@app.route("/partial/wallet")
+def partial_wallet():
+    return render_template(
+        "partials/wallet_card.html",
+        wallet=wallet
+    )
+
+@app.route("/partial/config")
+def partial_config():
+    return render_template(
+        "partials/config_card.html",
+        config_data=config_data
+    )
+
+@app.route("/partial/position")
+def partial_position():
+    return render_template(
+        "partials/position_card.html",
+        position=position
+    )
     
 if __name__ == "__main__":
 
