@@ -15,6 +15,7 @@ from engine.recovery import recovery
 from api.private import private
 from core.wallet_manager import wallet as wallet_manager
 from flask import jsonify
+from core.trade_manager import trade_manager
 
 app = Flask(__name__)
 
@@ -238,32 +239,22 @@ def home():
         bot_status=status.get("status","RUNNING")
     )
 
-@app.route("/save_config", methods=["POST"])
-def save_config():
+@app.route("/create_trade", methods=["POST"])
+def create_trade():
 
-    cfg = config_manager.load()
+    trade_manager.create_trade(
 
-    cfg.setdefault("running", True)
+        coin=request.form["coin"],
 
-    cfg["coin"] = request.form["coin"]
+        capital=int(request.form["capital"]),
 
-    cfg["entry_price"] = int(request.form["entry_price"])
+        entry_price=int(request.form["entry_price"]),
 
-    cfg["capital"] = int(request.form["capital"])
+        target_price=int(request.form["target_price"]),
 
-    cfg["target_price"] = int(request.form["target_price"])
-    
-    cfg["trailing_gap"] = int(request.form["trailing_gap"])
+        trailing_gap=int(request.form["trailing_gap"])
 
-    config_manager.save(cfg)
-   
-    engine.configure(
-        coin=cfg["coin"],
-        entry_price=cfg["entry_price"],
-        target_price=cfg["target_price"],
-        trailing_gap=cfg["trailing_gap"],
-        capital=cfg["capital"]
-        )
+    )
 
     return redirect("/")
     
