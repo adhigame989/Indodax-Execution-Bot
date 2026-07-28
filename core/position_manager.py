@@ -39,7 +39,8 @@ class PositionManager:
             buy_price,
             capital,
             qty,
-            target_price):
+            target_price=0
+        ):
 
         positions = self.load()
 
