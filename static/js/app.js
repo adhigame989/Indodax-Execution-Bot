@@ -1,25 +1,41 @@
-async function updateDashboard() {
+let isEditing = false;
 
-    try {
+document.addEventListener("DOMContentLoaded", () => {
 
-        const res = await fetch("/api/status");
+    const form = document.querySelector("#trade-builder-form");
 
-        if (!res.ok) return;
+    if(form){
 
-        console.log(await res.json());
+        form.querySelectorAll("input,select").forEach(el=>{
 
-    } catch (e) {
+            el.addEventListener("focus",()=>{
 
-        console.log(e);
+                isEditing=true;
+
+            });
+
+            el.addEventListener("blur",()=>{
+
+                isEditing=false;
+
+            });
+
+        });
 
     }
 
-}
+});
 
-updateDashboard();
+function refreshDashboard(){
 
-setInterval(() => {
+    if(isEditing){
+
+        return;
+
+    }
 
     location.reload();
 
-}, 3000);
+}
+
+setInterval(refreshDashboard,3000);
