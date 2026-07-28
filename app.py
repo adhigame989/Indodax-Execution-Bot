@@ -435,9 +435,18 @@ def partial_config():
 
 @app.route("/partial/position")
 def partial_position():
+
+    if engine.state == "WAIT_ENTRY":
+        return render_template(
+            "partials/target_trade_card.html",
+            engine=engine,
+            config_data=config_data
+        )
+
     return render_template(
         "partials/position_card.html",
-        position=position
+        position=position,
+        engine=engine
     )
     
 if __name__ == "__main__":
