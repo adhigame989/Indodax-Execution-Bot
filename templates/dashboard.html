@@ -1,19 +1,29 @@
 <div class="container">
 
-    {% include "partials/summary_card.html" %}
+    <div id="summary-card">
+        {% include "partials/summary_card.html" %}
+    </div>
 
-    {% if engine.state == "WAIT_ENTRY" %}
+    <div id="position-card">
 
-        {% include "partials/target_trade_card.html" %}
+        {% if engine.state == "WAIT_ENTRY" %}
 
-    {% else %}
+            {% include "partials/target_trade_card.html" %}
 
-        {% include "partials/position_card.html" %}
+        {% else %}
 
-    {% endif %}
+            {% include "partials/position_card.html" %}
 
-    {% include "partials/wallet_card.html" %}
+        {% endif %}
 
-    {% include "partials/config_card.html" %}
+    </div>
+
+    <div id="wallet-card">
+        {% include "partials/wallet_card.html" %}
+    </div>
+
+    <div id="config-card">
+        {% include "partials/config_card.html" %}
+    </div>
 
 </div>
