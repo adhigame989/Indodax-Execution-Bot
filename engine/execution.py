@@ -1,5 +1,6 @@
 import threading
 import time
+import traceback
 
 from engine.state import BotState
 from engine.entry_engine import entry_engine
@@ -88,7 +89,7 @@ class ExecutionEngine:
                 elif self.state == BotState.FINISHED:
                     finish_engine.run(self)
             except Exception as e:
-                print(e)
+                traceback.print_exc()
             time.sleep(self.interval)
 
     def get_status(self):
