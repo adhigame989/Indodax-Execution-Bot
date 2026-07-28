@@ -3,10 +3,6 @@ from api.private import private
 
 class OrderEngine:
 
-    # ==========================
-    # BUY
-    # ==========================
-
     def buy(self, pair, price, capital):
 
         result = private.buy(
@@ -16,23 +12,16 @@ class OrderEngine:
         )
 
         if result.get("success") != 1:
-
             return {
                 "success": False,
                 "message": result.get("error", "BUY FAILED")
             }
 
-        data = result["return"]
-
         return {
             "success": True,
-            "order_id": data["order_id"],
+            "order_id": result["return"]["order_id"],
             "message": "BUY ORDER CREATED"
         }
-
-    # ==========================
-    # SELL
-    # ==========================
 
     def sell(self, pair, price, qty):
 
@@ -43,117 +32,108 @@ class OrderEngine:
         )
 
         if result.get("success") != 1:
-
             return {
                 "success": False,
                 "message": result.get("error", "SELL FAILED")
             }
 
-        data = result["return"]
-
         return {
             "success": True,
-            "order_id": data["order_id"],
+            "order_id": result["return"]["order_id"],
             "message": "SELL ORDER CREATED"
         }
 
-    # ==========================
-    # VERIFY BUY
-    # ==========================
-
     def verify_buy(self, pair, order_id):
 
-        result = private.get_order(
-            pair,
-            order_id
-        )
-        print("VERIFY RESPONSE:")
-        print(result)
+        result = private.get_order(pair, order_id)
 
         if result.get("success") != 1:
-
             return {
                 "success": False,
                 "filled": False,
                 "message": result.get("error", "VERIFY FAILED")
             }
 
-        data = result["return"]
+        data = result.get("return", {})
 
-        buy = data.get("buy", {})
+        order = data.get("buy")
 
-        print("=" * 60)
-        print("FULL GET ORDER RESPONSE")
-        print(result)
-        print("=" * 60)
+        if order is None:
+            order = data.get("order", {})
 
-        status = buy.get("status", "")
-
-        print("=" * 50)
-        print("VERIFY BUY DEBUG")
-        print("BUY OBJECT :", buy)
-        print("STATUS     :", status)
-        print("PRICE      :", buy.get("price"))
-        print("ORDER_AMT  :", buy.get("order_amount"))
-        print("REMAIN_RP  :", buy.get("remain_rp"))
-        print("REFUND     :", buy.get("refund"))
-        print("=" * 50)
-
-        if status.lower() == "filled":
-
+        if not order:
             return {
                 "success": True,
-                "filled": True,
-                "price": float(buy.get("price", 0)),
-                "qty": float(buy.get("order_amount", 0))
+                "filled": False
             }
+
+        status = str(order.get("status", "")).lower()
+
+        if status != "filled":
+            return {
+                "success": True,
+                "filled": False
+            }
+
+        coin = pair.lower().replace("_idr", "")
+
+        qty = 0
+
+        receive_key = f"receive_{coin}"
+
+        if receive_key in order:
+            qty = float(order.get(receive_key, 0))
+
+        elif "order_amount" in order:
+            qty = float(order.get("order_amount", 0))
+
+        elif "receive_coin" in order:
+            qty = float(order.get("receive_coin", 0))
 
         return {
             "success": True,
-            "filled": False
+            "filled": True,
+            "price": float(order.get("price", 0)),
+            "qty": qty
         }
-
-    # ==========================
-    # VERIFY SELL
-    # ==========================
 
     def verify_sell(self, pair, order_id):
 
-        result = private.get_order(
-            pair,
-            order_id
-        )
+        result = private.get_order(pair, order_id)
 
         if result.get("success") != 1:
-
             return {
                 "success": False,
                 "filled": False,
                 "message": result.get("error", "VERIFY FAILED")
             }
 
-        data = result["return"]
+        data = result.get("return", {})
 
-        sell = data.get("sell", {})
+        sell = data.get("sell")
 
-        status = sell.get("status", "")
+        if sell is None:
+            sell = data.get("order", {})
 
-        if status.lower() == "filled":
-
+        if not sell:
             return {
                 "success": True,
-                "filled": True,
-                "price": float(sell.get("price", 0))
+                "filled": False
+            }
+
+        status = str(sell.get("status", "")).lower()
+
+        if status != "filled":
+            return {
+                "success": True,
+                "filled": False
             }
 
         return {
             "success": True,
-            "filled": False
+            "filled": True,
+            "price": float(sell.get("price", 0))
         }
-
-    # ==========================
-    # CANCEL
-    # ==========================
 
     def cancel(self, pair, order_id, order_type):
 
@@ -164,7 +144,6 @@ class OrderEngine:
         )
 
         if result.get("success") != 1:
-
             return {
                 "success": False,
                 "message": result.get("error", "CANCEL FAILED")
