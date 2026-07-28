@@ -53,7 +53,7 @@ class VerifyBuyEngine:
 
             capital=engine.capital,
 
-            qty=engine.qty
+            qty=engine.qty,
 
             target_price=engine.target_price
 
