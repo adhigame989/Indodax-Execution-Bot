@@ -23,7 +23,8 @@ FILES = [
     "config.json",
     "active_trades.json",
     "history.json",
-    "bot_state.json"
+    "bot_state.json",
+    "trade_setups.json"
 ]
 
 def format_rupiah(value):
@@ -50,6 +51,7 @@ def init_storage():
         },
         "active_trades.json": [],
         "history.json": [],
+        "trade_setups.json": [],
         "bot_state.json": {
             "status": "RUNNING",
             "engine": "IDLE",
@@ -242,6 +244,10 @@ def home():
 @app.route("/create_trade", methods=["POST"])
 def create_trade():
 
+    print("========== CREATE TRADE ==========")
+    print(request.method)
+    print(dict(request.form))
+    
     trade_manager.create_trade(
 
         coin=request.form["coin"],
