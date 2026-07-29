@@ -75,26 +75,6 @@ class VerifySellEngine:
                 engine.trade_id,
                 "COMPLETED"
             )
-
-# Ambil trade berikutnya
-        trade = trade_manager.get_next_waiting_trade()
-
-        if trade:
-
-            print(f"NEXT TRADE : {trade['coin']}")
-
-            engine.configure(
-                coin=trade["coin"],
-                entry_price=trade["entry_price"],
-                target_price=trade["target_price"],
-                trailing_gap=trade["trailing_gap"],
-                capital=trade["capital"],
-                trade_id=trade["id"]
-            )
-
-        else:
-
-                engine.state = BotState.FINISHED
-
+        engine.state = BotState.FINISHED
 
 verify_sell_engine = VerifySellEngine()
