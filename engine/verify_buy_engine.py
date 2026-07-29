@@ -2,6 +2,7 @@ from engine.state import BotState
 from engine.order import order
 from core.position_manager import position_manager
 from datetime import datetime
+from core.trade_manager import trade_manager
 
 class VerifyBuyEngine:
 
