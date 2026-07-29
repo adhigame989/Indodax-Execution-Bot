@@ -87,34 +87,6 @@ engine.configure(
     capital=cfg.get("capital", 100000)
 )
 
-if not recovery.restore(engine):
-
-    trade = get_next_trade()
-
-        if trade:
-
-            engine.configure(
-                coin=trade["coin"],
-                entry_price=trade["entry_price"],
-                target_price=trade["target_price"],
-                trailing_gap=trade["trailing_gap"],
-                capital=trade["capital"]
-            )
-
-        else:
-
-            cfg = config_manager.load()
-
-            engine.configure(
-                coin=cfg.get("coin", "BTC_IDR"),
-                entry_price=0,
-                target_price=0,
-                trailing_gap=1,
-                capital=0
-            )
-
-engine.start()
-
 def get_next_trade():
     trades = trade_manager.get_all()
 
@@ -123,6 +95,34 @@ def get_next_trade():
             return trade
 
     return None
+    
+if not recovery.restore(engine):
+
+    trade = get_next_trade()
+
+    if trade:
+
+        engine.configure(
+            coin=trade["coin"],
+            entry_price=trade["entry_price"],
+            target_price=trade["target_price"],
+            trailing_gap=trade["trailing_gap"],
+            capital=trade["capital"]
+        )
+
+    else:
+
+        cfg = config_manager.load()
+
+        engine.configure(
+            coin=cfg.get("coin", "BTC_IDR"),
+            entry_price=0,
+            target_price=0,
+            trailing_gap=1,
+            capital=0
+        )
+
+engine.start()
 
 @app.route("/")
 def home():
