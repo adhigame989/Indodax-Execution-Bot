@@ -1,7 +1,7 @@
 from engine.state import BotState
 from engine.order import order
 from core.position_manager import position_manager
-
+from core.trade_manager import trade_manager
 
 class VerifySellEngine:
 
@@ -64,14 +64,37 @@ class VerifySellEngine:
         print(f"P/L  : {pnl:,.0f}")
 
         position_manager.remove(
-
             engine.coin
-
         )
 
         engine.sell_price = sell_price
 
-        engine.state = BotState.FINISHED
+# Tandai trade selesai
+        if engine.trade_id:
+            trade_manager.set_status(
+                engine.trade_id,
+                "COMPLETED"
+            )
+
+# Ambil trade berikutnya
+        trade = trade_manager.get_next_waiting_trade()
+
+        if trade:
+
+            print(f"NEXT TRADE : {trade['coin']}")
+
+            engine.configure(
+                coin=trade["coin"],
+                entry_price=trade["entry_price"],
+                target_price=trade["target_price"],
+                trailing_gap=trade["trailing_gap"],
+                capital=trade["capital"],
+                trade_id=trade["id"]
+            )
+
+        else:
+
+                engine.state = BotState.FINISHED
 
 
 verify_sell_engine = VerifySellEngine()
