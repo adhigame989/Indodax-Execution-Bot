@@ -170,5 +170,26 @@ class TradeManager:
 
         self.save(trades)
 
+    def get_next_waiting_trade():
+
+        trades = get_all()
+
+        for trade in trades:
+            if trade.get("status") == "WAIT_ENTRY":
+                return trade
+
+        return None
+
+    def set_status(trade_id, status):
+
+        trades = get_all()
+
+        for trade in trades:
+
+            if trade["id"] == trade_id:
+                trade["status"] = status
+                break
+
+        save_all(trades)
 
 trade_manager = TradeManager()
