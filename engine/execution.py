@@ -21,6 +21,7 @@ class ExecutionEngine:
         self.thread = None
         self.interval = 1
         self.coin = None
+        self.trade_id = None
         self.entry_price = 0
         self.target_price = 0
         self.trailing_gap = 0
@@ -42,7 +43,9 @@ class ExecutionEngine:
                   entry_price,
                   target_price,
                   trailing_gap,
-                  capital):
+                  capital,
+                  trade_id=None
+                ):
 
         self.coin = coin.upper()
 
@@ -55,6 +58,8 @@ class ExecutionEngine:
         self.capital = float(capital)
 
         self.state = BotState.WAIT_ENTRY
+
+        self.trade_id = trade_id
 
     def start(self):
         if self.running:
