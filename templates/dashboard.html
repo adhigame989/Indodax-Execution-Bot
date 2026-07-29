@@ -6,9 +6,11 @@
 
     <div id="position-card">
 
-        {% if engine.state == "WAIT_ENTRY" %}
+        {% if trade_setups %}
 
-            {% include "partials/target_trade_card.html" %}
+            {% for trade in trade_setups %}
+                {% include "partials/target_trade_card.html" %}
+            {% endfor %}
 
         {% else %}
 
