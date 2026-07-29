@@ -77,16 +77,6 @@ api.update()
 
 monitor.start()
 
-cfg = config_manager.load()
-
-engine.configure(
-    coin=cfg.get("coin", "BTC_IDR"),
-    entry_price=cfg.get("entry_price", 0),
-    target_price=cfg.get("target_price", 0),
-    trailing_gap=cfg.get("trailing_gap", 1),
-    capital=cfg.get("capital", 100000)
-)
-
 def get_next_trade():
     trades = trade_manager.get_all()
 
@@ -175,9 +165,12 @@ def home():
     status["current_price"] = format_rupiah(status.get("current_price", 0))
     status["capital"] = format_rupiah(status.get("capital", 0))
     
-    cfg = config_manager.load()
-    wallet = wallet_manager.get_wallet_summary(cfg.get("coin"))
+    trade = get_next_trade()
 
+    coin = trade["coin"] if trade else "BTC_IDR"
+
+    wallet = wallet_manager.get_wallet_summary(coin)
+ 
     hold_time = "-"
 
     if engine.buy_time:
@@ -224,30 +217,30 @@ def home():
         }
     
     
-    config_data = {
+    if trade:
 
-        "coin": cfg.get("coin"),
+        config_data = {
+            "coin": trade["coin"],
+            "capital": format_rupiah(trade["capital"]),
+            "capital_raw": trade["capital"],
+            "entry_price": format_rupiah(trade["entry_price"]),
+            "entry_price_raw": trade["entry_price"],
+            "target_price": format_rupiah(trade["target_price"]),
+            "target_price_raw": trade["target_price"],
+            "trailing_gap": trade["trailing_gap"]
+        }
 
-        "capital": format_rupiah(
-            cfg.get("capital",0)
-        ),
+    else:
 
-        "capital_raw": cfg.get("capital",0),
-
-        "entry_price": format_rupiah(
-            cfg.get("entry_price",0)
-        ),
-
-        "entry_price_raw": cfg.get("entry_price",0),
-
-        "target_price": format_rupiah(
-            cfg.get("target_price",0)
-        ),
-
-        "target_price_raw": cfg.get("target_price",0),
-
-        "trailing_gap": cfg.get("trailing_gap",1)
-
+        config_data = {
+            "coin": "-",
+            "capital": "Rp -",
+            "capital_raw": 0,
+            "entry_price": "Rp -",
+            "entry_price_raw": 0,
+            "target_price": "Rp -",
+            "target_price_raw": 0,
+            "trailing_gap": 0
         }
 
     trade_setups = trade_manager.get_all()
@@ -292,19 +285,24 @@ def create_trade():
 @app.post("/bot/start")
 def start_bot():
 
-    cfg = config_manager.set_running(True)
+    config_manager.set_running(True)
 
-    engine.configure(
-        coin=cfg["coin"],
-        entry_price=cfg["entry_price"],
-        target_price=cfg["target_price"],
-        trailing_gap=cfg["trailing_gap"],
-        capital=cfg["capital"]
-    )
+    trade = get_next_trade()
+
+    if trade:
+
+        engine.configure(
+            coin=trade["coin"],
+            entry_price=trade["entry_price"],
+            target_price=trade["target_price"],
+            trailing_gap=trade["trailing_gap"],
+            capital=trade["capital"]
+        )
 
     engine.start()
 
     return redirect("/")
+    
 @app.post("/bot/stop")
 def stop_bot():
 
@@ -426,7 +424,12 @@ def api_balance():
 @app.route("/api/config")
 def api_config():
 
-    return config_manager.load()
+    trade = get_next_trade()
+
+    if trade:
+        return trade
+
+    return {}
     
 if __name__ == "__main__":
 
