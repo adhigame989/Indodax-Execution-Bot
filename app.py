@@ -89,18 +89,40 @@ engine.configure(
 
 if not recovery.restore(engine):
 
-    cfg = config_manager.load()
+    trade = get_next_trade()
 
-    engine.configure(
-        coin=cfg.get("coin", "BTC_IDR"),
-        entry_price=cfg.get("entry_price", 0),
-        target_price=cfg.get("target_price", 0),
-        trailing_gap=cfg.get("trailing_gap", 1),
-        capital=cfg.get("capital", 100000)
-    )
+        if trade:
+
+            engine.configure(
+                coin=trade["coin"],
+                entry_price=trade["entry_price"],
+                target_price=trade["target_price"],
+                trailing_gap=trade["trailing_gap"],
+                capital=trade["capital"]
+            )
+
+        else:
+
+            cfg = config_manager.load()
+
+            engine.configure(
+                coin=cfg.get("coin", "BTC_IDR"),
+                entry_price=0,
+                target_price=0,
+                trailing_gap=1,
+                capital=0
+            )
 
 engine.start()
 
+def get_next_trade():
+    trades = trade_manager.get_all()
+
+    for trade in trades:
+        if trade.get("status") == "WAIT_ENTRY":
+            return trade
+
+    return None
 
 @app.route("/")
 def home():
