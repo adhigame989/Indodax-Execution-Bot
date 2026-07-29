@@ -97,7 +97,8 @@ if not recovery.restore(engine):
             entry_price=trade["entry_price"],
             target_price=trade["target_price"],
             trailing_gap=trade["trailing_gap"],
-            capital=trade["capital"]
+            capital=trade["capital"],
+            trade_id=trade["id"]
         )
 
     else:
@@ -296,7 +297,8 @@ def start_bot():
             entry_price=trade["entry_price"],
             target_price=trade["target_price"],
             trailing_gap=trade["trailing_gap"],
-            capital=trade["capital"]
+            capital=trade["capital"],
+            trade_id=trade["id"]
         )
 
     engine.start()
@@ -322,7 +324,8 @@ def load_default():
         entry_price=cfg["entry_price"],
         target_price=cfg["target_price"],
         trailing_gap=cfg["trailing_gap"],
-        capital=cfg["capital"]
+        capital=cfg["capital"],
+        trade_id=trade["id"]
     )
 
     return redirect("/")
