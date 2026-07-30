@@ -90,11 +90,13 @@
 
         <tr>
 
-            <td>Coin</td>
+            <td>Queue</td>
 
             <td align="right">
 
-                <b>{{ engine.coin }}</b>
+                <b>
+                    {{ queue_count }}
+                </b>
 
             </td>
 
@@ -102,11 +104,31 @@
 
         <tr>
 
-            <td>Current</td>
+            <td>Waiting</td>
 
             <td align="right">
 
-                <b>{{ engine.current_price }}</b>
+                <span style="color:#3b82f6;font-weight:bold;">
+
+                    {{ waiting_count }}
+
+                </span>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>Active</td>
+
+            <td align="right">
+
+                <span style="color:#22c55e;font-weight:bold;">
+
+                    {{ active_count }}
+
+                </span>
 
             </td>
 
