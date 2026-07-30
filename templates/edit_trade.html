@@ -1,141 +1,82 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
+{% block content %}
 
-    <title>Edit Trade</title>
+<div class="container edit-container">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
+    <div class="card edit-card">
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
-
-</head>
-
-<body>
-
-    <div class="navbar">
-
-        <div class="navbar-left">
-
-            <div class="logo">
-                🤖
-            </div>
-
-            <div>
-
-                <div class="app-title">
-                    Indodax Execution Bot
-                </div>
-
-                <div class="app-version">
-                    Edit Trade Setup
-                </div>
-
-            </div>
-
+        <div class="card-title">
+            ✏️ EDIT TRADE #{{ trade.id }}
         </div>
+
+        <form method="POST"
+              action="/update_trade/{{ trade.id }}">
+
+            <div class="form-group">
+                <label>Coin</label>
+                <input type="text"
+                       name="coin"
+                       value="{{ trade.coin }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Capital (IDR)</label>
+                <input type="number"
+                       name="capital"
+                       value="{{ trade.capital }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Entry Price</label>
+                <input type="number"
+                       name="entry_price"
+                       value="{{ trade.entry_price }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Target Price</label>
+                <input type="number"
+                       name="target_price"
+                       value="{{ trade.target_price }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Trailing Gap (%)</label>
+                <input type="number"
+                       step="0.1"
+                       name="trailing_gap"
+                       value="{{ trade.trailing_gap }}"
+                       required>
+            </div>
+
+            <div class="edit-buttons">
+
+                <a href="/"
+                   class="btn-cancel">
+
+                    Cancel
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn-update">
+
+                    💾 Save Trade
+
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 
-    <div class="container edit-container">
+</div>
 
-        <div class="card edit-card">
-
-            <div class="card-title">
-                ✏️ EDIT TRADE #{{ trade.id }}
-            </div>
-
-            <form method="POST"
-                  action="/update_trade/{{ trade.id }}">
-
-                <div class="form-group">
-
-                    <label>Coin</label>
-
-                    <input
-                        type="text"
-                        name="coin"
-                        value="{{ trade.coin }}"
-                        required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Capital (IDR)</label>
-
-                    <input
-                        type="number"
-                        name="capital"
-                        value="{{ trade.capital }}"
-                        required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Entry Price</label>
-
-                    <input
-                        type="number"
-                        name="entry_price"
-                        value="{{ trade.entry_price }}"
-                        required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Target Price</label>
-
-                    <input
-                        type="number"
-                        name="target_price"
-                        value="{{ trade.target_price }}"
-                        required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Trailing Gap (%)</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="trailing_gap"
-                        value="{{ trade.trailing_gap }}"
-                        required>
-
-                </div>
-
-                <div class="edit-buttons">
-
-                    <a href="/"
-                       class="btn-cancel">
-
-                        Cancel
-
-                    </a>
-
-                    <button
-                        type="submit"
-                        class="btn-update">
-
-                        💾 Save Trade
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</body>
-
-</html>
+{% endblock %}
