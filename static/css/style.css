@@ -377,3 +377,11 @@ font-weight:bold;
     font-weight:bold;
     padding:12px;
 }
+
+.button-group a{
+    flex:1;
+}
+
+.button-group button{
+    flex:1;
+}
