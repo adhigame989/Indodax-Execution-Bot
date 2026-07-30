@@ -172,10 +172,10 @@ class TradeManager:
 
     def get_next_waiting_trade():
 
-        trades = get_all()
+        trades = self.load()
 
         for trade in trades:
-            if trade.get("status") == "WAIT_ENTRY":
+            if trade.get("state") == "WAIT_ENTRY":
                 return trade
 
         return None
