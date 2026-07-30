@@ -170,7 +170,7 @@ class TradeManager:
 
         self.save(trades)
 
-    def get_next_waiting_trade():
+    def get_next_waiting_trade(self):
 
         trades = self.load()
 
