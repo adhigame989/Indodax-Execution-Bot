@@ -34,6 +34,25 @@ class VerifyBuyEngine:
 
         if not verify["filled"]:
 
+            if (
+                engine.buy_verify_started and
+                time.time() - engine.buy_verify_started > 300
+            ):
+
+                print("BUY VERIFY TIMEOUT")
+
+                order.cancel(
+                    engine.coin,
+                    engine.order_id,
+                    "buy"
+                )
+
+                engine.order_id = None
+                engine.buy_verify_started = None
+                engine.state = BotState.WAIT_ENTRY
+
+                return
+
             print("WAIT BUY FILL")
 
             return
