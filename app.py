@@ -433,6 +433,35 @@ def api_config():
         return trade
 
     return {}
+
+@app.route("/edit_trade/<int:trade_id>")
+def edit_trade(trade_id):
+
+    trade = trade_manager.get_trade(trade_id)
+
+    if not trade:
+        return redirect("/")
+
+    return render_template(
+        "edit_trade.html",
+        trade=trade
+    )
+
+@app.route("/update_trade/<int:trade_id>", methods=["POST"])
+def update_trade(trade_id):
+
+    trade_manager.update_trade(
+        trade_id,
+        {
+            "coin": request.form["coin"].upper(),
+            "capital": int(request.form["capital"]),
+            "entry_price": int(request.form["entry_price"]),
+            "target_price": int(request.form["target_price"]),
+            "trailing_gap": float(request.form["trailing_gap"])
+        }
+    )
+
+    return redirect("/")
     
 if __name__ == "__main__":
 
