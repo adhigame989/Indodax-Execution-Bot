@@ -317,3 +317,63 @@ color:white;
 font-weight:bold;
 
 }
+
+.edit-container{
+    padding:15px;
+}
+
+.edit-card{
+    max-width:700px;
+    margin:auto;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group label{
+    display:block;
+    color:#9ca3af;
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+.form-group input{
+    width:100%;
+    background:#1e2635;
+    color:white;
+    border:1px solid #3d4b63;
+    border-radius:8px;
+    padding:10px;
+    font-size:15px;
+    box-sizing:border-box;
+}
+
+.edit-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.btn-cancel{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    background:#4b5563;
+    color:white;
+    border-radius:10px;
+    font-weight:bold;
+    padding:12px;
+}
+
+.btn-update{
+    flex:1;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    font-weight:bold;
+    padding:12px;
+}
