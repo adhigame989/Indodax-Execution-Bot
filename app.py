@@ -81,7 +81,7 @@ def get_next_trade():
     trades = trade_manager.get_all()
 
     for trade in trades:
-        if trade.get("status") == "WAIT_ENTRY":
+        if trade.get("state") == "WAIT_ENTRY":
             return trade
 
     return None
