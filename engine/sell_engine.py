@@ -49,6 +49,8 @@ class SellEngine:
 
             engine.sell_order_id = result["order_id"]
 
+            engine.sell_verify_started = time.time()
+
             print(
 
                 f"SELL ORDER CREATED : {engine.sell_order_id}"
