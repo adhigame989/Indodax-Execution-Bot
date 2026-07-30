@@ -3,7 +3,7 @@
     <div class="card-title">
         🎯 TRADE SETUP
         {% if trade.trade_id %}
-            <span style="float:right">#{{ trade_id }}</span>
+            <span style="float:right">#{{ trade.id }}</span>
         {% endif %}
     </div>
 
@@ -62,13 +62,13 @@
 
     <div style="display:flex;gap:8px;margin-top:12px;">
 
-        <a href="/edit_trade/{{ trade_id }}"
+        <a href="/edit_trade/{{ trade.id }}"
            class="btn btn-primary"
            style="flex:1;text-align:center;">
             Edit
         </a>
 
-        <a href="/delete_trade/{{ trade_id }}"
+        <a href="/delete_trade/{{ trade.id }}"
            class="btn btn-danger"
            style="flex:1;text-align:center;"
            onclick="return confirm('Hapus trade ini?');">
