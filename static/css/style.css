@@ -385,3 +385,61 @@ font-weight:bold;
 .button-group button{
     flex:1;
 }
+
+.trade-id{
+    float:right;
+    color:#22c55e;
+    font-weight:bold;
+}
+
+.status-badge{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.status-wait{
+    background:#1e3a8a;
+    color:#60a5fa;
+}
+
+.status-holding{
+    background:#14532d;
+    color:#4ade80;
+}
+
+.status-selling{
+    background:#78350f;
+    color:#fbbf24;
+}
+
+.status-finished{
+    background:#374151;
+    color:#d1d5db;
+}
+
+.trade-actions{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.trade-btn{
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+    padding:10px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.trade-edit{
+    background:#2563eb;
+    color:white;
+}
+
+.trade-delete{
+    background:#dc2626;
+    color:white;
+}
