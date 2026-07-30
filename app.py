@@ -452,14 +452,19 @@ def update_trade(trade_id):
 
     trade_manager.update_trade(
         trade_id,
-        {
-            "coin": request.form["coin"].upper(),
-            "capital": int(request.form["capital"]),
-            "entry_price": int(request.form["entry_price"]),
-            "target_price": int(request.form["target_price"]),
-            "trailing_gap": float(request.form["trailing_gap"])
-        }
+        coin=request.form["coin"].upper(),
+        capital=int(request.form["capital"]),
+        entry_price=int(request.form["entry_price"]),
+        target_price=int(request.form["target_price"]),
+        trailing_gap=float(request.form["trailing_gap"])
     )
+
+    return redirect("/")
+
+@app.route("/delete_trade/<int:trade_id>")
+def delete_trade(trade_id):
+
+    trade_manager.delete_trade(trade_id)
 
     return redirect("/")
     
