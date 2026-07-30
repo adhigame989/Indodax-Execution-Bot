@@ -1,10 +1,13 @@
 <div class="card">
 
     <div class="card-title">
+
         🎯 TRADE SETUP
-        {% if trade.trade_id %}
-            <span style="float:right">#{{ trade.id }}</span>
-        {% endif %}
+
+        <span class="trade-id">
+            #{{ trade.id }}
+        </span>
+
     </div>
 
     <table class="info-table">
@@ -12,67 +15,96 @@
         <tr>
             <td>Coin</td>
             <td>
-                <b>{{ trade.coin or "-" }}</b>
+                {{ trade.coin.replace('_IDR','') }}
             </td>
         </tr>
 
         <tr>
             <td>Capital</td>
             <td>
-                <b>{{ trade.capital }}</b>
+                Rp {{ "{:,.0f}".format(trade.capital).replace(",", ".") }}
             </td>
         </tr>
 
         <tr>
             <td>Entry Price</td>
             <td>
-                <b>{{ trade.entry_price }}</b>
+                Rp {{ "{:,.0f}".format(trade.entry_price).replace(",", ".") }}
             </td>
         </tr>
 
         <tr>
             <td>Target Price</td>
             <td>
-                <b>{{ trade.target_price }}</b>
+                Rp {{ "{:,.0f}".format(trade.target_price).replace(",", ".") }}
             </td>
         </tr>
 
         <tr>
             <td>Trailing Gap</td>
             <td>
-                <b>{{ trade.trailing_gap }} %</b>
+                {{ trade.trailing_gap }} %
             </td>
         </tr>
 
         <tr>
             <td>Status</td>
+
             <td>
-                <b>{{ trade.status or "WAIT_ENTRY" }}</b>
+
+                {% if trade.state == "WAIT_ENTRY" %}
+                    <span class="status-badge status-wait">
+                        WAIT ENTRY
+                    </span>
+
+                {% elif trade.state == "HOLDING" %}
+                    <span class="status-badge status-holding">
+                        HOLDING
+                    </span>
+
+                {% elif trade.state == "SELLING" %}
+                    <span class="status-badge status-selling">
+                        SELLING
+                    </span>
+
+                {% else %}
+                    <span class="status-badge status-finished">
+                        {{ trade.state }}
+                    </span>
+                {% endif %}
+
             </td>
+
         </tr>
 
         <tr>
             <td>Created</td>
+
             <td>
-                <small>{{ trade.created_at or "-" }}</small>
+                <small>
+                    {{ trade.created_at }}
+                </small>
             </td>
+
         </tr>
 
     </table>
 
-    <div style="display:flex;gap:8px;margin-top:12px;">
+    <div class="trade-actions">
 
         <a href="/edit_trade/{{ trade.id }}"
-           class="btn btn-primary"
-           style="flex:1;text-align:center;">
-            Edit
+           class="trade-btn trade-edit">
+
+            ✏️ Edit
+
         </a>
 
         <a href="/delete_trade/{{ trade.id }}"
-           class="btn btn-danger"
-           style="flex:1;text-align:center;"
+           class="trade-btn trade-delete"
            onclick="return confirm('Hapus trade ini?');">
-            Delete
+
+            🗑 Delete
+
         </a>
 
     </div>
