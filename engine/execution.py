@@ -37,6 +37,8 @@ class ExecutionEngine:
         self.sell_order_id = None
         self.last_buy_failed = 0
         self.buy_time = None
+        self.buy_verify_started = None
+        self.sell_verify_started = None
 
     def configure(self,
                   coin,
