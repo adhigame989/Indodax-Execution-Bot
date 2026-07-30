@@ -39,6 +39,8 @@ class BuyEngine:
 
             engine.order_id = result["order_id"]
 
+            engine.buy_verify_started = time.time()
+
             print(f"BUY ORDER CREATED : {engine.order_id}")
 
             engine.state = BotState.VERIFY_BUY
