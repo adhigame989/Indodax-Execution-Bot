@@ -348,7 +348,6 @@ def load_default():
         target_price=cfg["target_price"],
         trailing_gap=cfg["trailing_gap"],
         capital=cfg["capital"],
-        trade_id=trade["id"]
     )
 
     return redirect("/")
