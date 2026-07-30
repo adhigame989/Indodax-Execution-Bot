@@ -245,6 +245,26 @@ def home():
         }
 
     trade_setups = trade_manager.get_all()
+
+    waiting_count = 0
+    active_count = 0
+
+    for trade in trade_setups:
+
+        state = trade.get("state", "WAIT_ENTRY")
+
+        if state == "WAIT_ENTRY":
+            waiting_count += 1
+
+        elif state in [
+            "BUYING",
+            "VERIFY_BUY",
+            "HOLDING",
+            "TP_ZONE",
+            "TRAILING",
+            "SELLING"
+        ]:
+            active_count += 1
     return render_template(
         "index.html",
         app_name=config.APP_NAME,
@@ -256,6 +276,9 @@ def home():
         position=position,
         config_data=config_data,
         trade_setups=trade_setups,
+        waiting_count=waiting_count,
+        active_count=active_count,
+        queue_count=len(trade_setups),
         bot_status=status.get("status","RUNNING")
     )
 
