@@ -180,16 +180,11 @@ class TradeManager:
 
         return None
 
-    def set_status(trade_id, status):
+    def set_status(self, trade_id, state):
 
-        trades = get_all()
-
-        for trade in trades:
-
-            if trade["id"] == trade_id:
-                trade["status"] = status
-                break
-
-        save_all(trades)
+        self.update_trade(
+            trade_id,
+            state=state
+        )
 
 trade_manager = TradeManager()
