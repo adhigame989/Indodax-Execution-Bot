@@ -69,7 +69,7 @@ class VerifyBuyEngine:
 
         engine.buy_time = datetime.now()
         engine.state = BotState.HOLDING
-        trade_manager.set_status(engine.trade_id, "ACTIVE")
+        trade_manager.set_status(engine.trade_id, "HOLDING")
         
         print(">>> STATE CHANGED TO HOLDING <<<")
 
