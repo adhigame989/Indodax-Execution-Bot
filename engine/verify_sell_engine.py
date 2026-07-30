@@ -73,7 +73,7 @@ class VerifySellEngine:
         if engine.trade_id:
             trade_manager.set_status(
                 engine.trade_id,
-                "COMPLETED"
+                "FINISHED"
             )
         engine.state = BotState.FINISHED
 
