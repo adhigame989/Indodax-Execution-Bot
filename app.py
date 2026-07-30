@@ -189,10 +189,13 @@ def home():
     position = {
 
         "active": status.get("state") in [
+            "BUYING",
+            "VERIFY_BUY",
             "HOLDING",
             "TP_ZONE",
             "TRAILING",
-            "SELLING"
+            "SELLING",
+            "VERIFY_SELL"
         ],
 
         "coin": status.get("coin", "-"),
@@ -262,7 +265,8 @@ def home():
             "HOLDING",
             "TP_ZONE",
             "TRAILING",
-            "SELLING"
+            "SELLING",
+            "VERIFY_SELL"
         ]:
             active_count += 1
     return render_template(
