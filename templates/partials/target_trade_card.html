@@ -27,6 +27,13 @@
         </tr>
 
         <tr>
+            <td>Current Price</td>
+            <td>
+                Rp {{ "{:,.0f}".format(trade.current_price).replace(",", ".") }}
+            </td>
+        </tr>
+        
+        <tr>
             <td>Entry Price</td>
             <td>
                 Rp {{ "{:,.0f}".format(trade.entry_price).replace(",", ".") }}
