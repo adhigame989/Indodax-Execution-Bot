@@ -249,6 +249,23 @@ def home():
 
     trade_setups = trade_manager.get_all()
 
+    for trade in trade_setups:
+
+        try:
+
+            ticker = api.get_ticker(
+                trade["coin"].lower()
+            )
+
+            trade["current_price"] = (
+                ticker["last"]
+                if ticker else 0
+            )
+
+        except:
+
+            trade["current_price"] = 0
+
     waiting_count = 0
     active_count = 0
 
@@ -269,6 +286,7 @@ def home():
             "VERIFY_SELL"
         ]:
             active_count += 1
+            
     return render_template(
         "index.html",
         app_name=config.APP_NAME,
