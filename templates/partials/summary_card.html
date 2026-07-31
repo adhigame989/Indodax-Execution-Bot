@@ -32,64 +32,6 @@
 
         <tr>
 
-            <td>Engine</td>
-
-            <td align="right">
-
-                {% if engine.state=="WAIT_ENTRY" %}
-
-                <span style="color:#3b82f6;font-weight:bold;">
-                    WAIT ENTRY
-                </span>
-
-                {% elif engine.state=="BUYING" %}
-
-                <span style="color:#f59e0b;font-weight:bold;">
-                    BUYING
-                </span>
-
-                {% elif engine.state=="VERIFY_BUY" %}
-
-                <span style="color:#f59e0b;font-weight:bold;">
-                    VERIFY BUY
-                </span>
-
-                {% elif engine.state=="HOLDING" %}
-
-                <span style="color:#22c55e;font-weight:bold;">
-                    HOLDING
-                </span>
-
-                {% elif engine.state=="TP_ZONE" %}
-
-                <span style="color:#a855f7;font-weight:bold;">
-                    TARGET ACTIVE
-                </span>
-
-                {% elif engine.state=="TRAILING" %}
-
-                <span style="color:#06b6d4;font-weight:bold;">
-                    TRAILING
-                </span>
-
-                {% elif engine.state=="SELLING" %}
-
-                <span style="color:#ef4444;font-weight:bold;">
-                    SELLING
-                </span>
-
-                {% else %}
-
-                {{ engine.state }}
-
-                {% endif %}
-
-            </td>
-
-        </tr>
-
-        <tr>
-
             <td>Queue</td>
 
             <td align="right">
