@@ -1,7 +1,7 @@
 from api.indodax import api
-
 from engine.state import BotState
 from core.position_manager import position_manager
+from core.wallet_manager import wallet
 
 
 class HoldingEngine:
@@ -13,6 +13,28 @@ class HoldingEngine:
         if not ticker:
             return
 
+        coin_symbol = engine.coin.replace("_IDR", "").lower()
+
+        balance = wallet.get_coin_balance(
+            coin_symbol
+        )
+
+        if balance <= 0:
+
+            print("=" * 40)
+            print(
+                f"MANUAL SELL DETECTED | "
+                f"{engine.coin} balance={balance}"
+            )
+            print("=" * 40)
+
+            position_manager.remove(
+                engine.coin
+            )
+
+            engine.state = BotState.FINISHED
+
+            return
         engine.current_price = ticker["last"]
 
         # Update Highest Price
